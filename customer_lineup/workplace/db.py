@@ -54,6 +54,11 @@ def get_district_with_name(district_name):
     return district
 
 @db_session
+def get_district_with_id(district_id):
+    district = District.get(id=district_id)
+    return district
+
+@db_session
 def get_all_districts_with_city_ref(city_ref):
     districts = District.select(lambda d: d.city_ref.city == city_ref.city)
     return districts
@@ -69,6 +74,11 @@ def add_city(city):
     return city
 
 @db_session
-def get_city(city_name):
+def get_city_with_name(city_name):
     city = City.get(city=city_name)
+    return city
+
+@db_session
+def get_city_with_id(city_id):
+    city = City.get(id=city_id)
     return city

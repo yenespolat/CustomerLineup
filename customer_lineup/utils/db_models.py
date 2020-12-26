@@ -87,11 +87,11 @@ class Comment(db.Entity):
     queue_element_ref = Optional(QueueElement)
 
 
-DATABASE_URL = os.getenv("DATABASE_URL")
-if os.getenv("DATABASE_URL"):
-    db.bind(provider="postgres", dsn=DATABASE_URL)
-else:
-    db.bind(provider="sqlite", filename='database.sqlite', create_db=True)
+DATABASE_URL = 'postgres://keundksfanucgq:0b9bf52a9ba31b333562f7ec42304631aa48a66c09badf4b96900ccae6329805@ec2-54-159-107-189.compute-1.amazonaws.com:5432/ddc7mu3s7k4o9o'  #os.getenv("DATABASE_URL")
+#if os.getenv("DATABASE_URL"):
+db.bind(provider="postgres", dsn=DATABASE_URL)
+#else:
+#    db.bind(provider="sqlite", filename='database.sqlite', create_db=True)
 
 db.generate_mapping(create_tables=True)
 
