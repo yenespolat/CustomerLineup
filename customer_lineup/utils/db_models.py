@@ -8,7 +8,7 @@ db = Database()
 
 class WebUser(db.Entity):
     id = PrimaryKey(int, auto=True)
-    email_address = Required(str)
+    email_address = Required(str, unique=True)
     phone_number = Optional(str)
     name = Optional(str)
     surname = Optional(str)
@@ -40,13 +40,13 @@ class Workplace(db.Entity):
 
 class City(db.Entity):
     id = PrimaryKey(int, auto=True)
-    city = Required(str)
+    city = Required(str, unique=True)
     districts_set = Set('District')
 
 
 class District(db.Entity):
     id = PrimaryKey(int, auto=True)
-    district = Required(str)
+    district = Required(str, unique=True)
     addresses_set = Set('Address')
     city_ref = Required(City)
 
