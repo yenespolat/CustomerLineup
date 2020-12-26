@@ -70,6 +70,7 @@ class QueueElement(db.Entity):
     taking_time = Required(datetime, default=lambda: datetime.now())
     status_time = Required(datetime, default=lambda: datetime.now())
     type = Required(int)
+    waiting_person = Required(int)
     # 1: from application
     # 2: on workplace
     first_estimated_waiting_time = Optional(int)
