@@ -100,4 +100,12 @@ def get_city_districts():
         return jsonify(result=False, msg='City not found!')
 
     districts = db.get_all_districts_with_city_ref(city)
-    return jsonify(result=True, districts=districts.to_dict())
+
+    if districts is None:
+        return jsonify(result=False, msg='Given city has no districts!')
+
+    district_list = []
+    for district in districts:
+        district_list.append(district.to_dict())
+
+    return jsonify(result=True, districts=district_list)
