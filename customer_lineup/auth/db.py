@@ -1,8 +1,9 @@
 from customer_lineup.utils.db_models import *
+from datetime import datetime
 
 @db_session
 def add_webuser(email, name, surname, user_type):
-    webuser = WebUser(email_address=email, name=name, surname=surname, user_type=user_type)
+    webuser = WebUser(email_address=email, name=name, surname=surname, user_type=user_type, registration_time=datetime.now())
     return webuser
 
 @db_session
