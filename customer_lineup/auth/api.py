@@ -59,8 +59,8 @@ def api_assign_user_to_wp():
         return jsonify(result=False, msg='Example usage: /api_assign_user_to_wp?user_id=1&workplace_id=2')
 
     webuser = db.get_webuser_with_id(user_id)
-    if webuser.user_type != 2:
-        return jsonify(result=False, msg='Given user is not wp manager!')
+    if webuser.user_type != 2 or webuser.managed_workplace_ref is not None:
+        return jsonify(result=False, msg='Given user is not wp manager or assigned before!')
 
     workplace = wp_db.get_workplace_with_id(workplace_id)
     db.asign_user_to_workplace(webuser, workplace)
