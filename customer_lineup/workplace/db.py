@@ -19,8 +19,8 @@ def add_address(district_ref, latitude, longitude):
     return address
 
 @db_session
-def get_address_with_id(address_id):
-    address = Address(id=address_id)
+def get_address_with_id(id):
+    address = Address.get(id=id)
     return address
 
 @db_session
