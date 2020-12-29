@@ -135,3 +135,38 @@ def api_add_district():
         return jsonify(result=False, msg='You\'ve added this district before!')
     added_district = db.add_district(district_name, city)
     return jsonify(result=True, msg='District added to given city!', added_district=added_district.to_dict())
+
+@workplace_api_bp.route('/add_address')
+def api_add_address():
+    args = request.args
+    if 'district' and 'lat' and 'long' in args:
+        district_name = args.get('district')
+        latitude = args.get('lat')
+        longitude = args.get('long')
+    else:
+        return jsonify(result=False, msg='Example usage: /add_address?district=XYZ&lat=999&long=999')
+
+    district = db.get_district_with_name(district_name)
+    if district is None:
+        return jsonify(result=False, msg='District not exist!')
+
+    added_address = db.add_address(district, latitude, longitude)
+    return jsonify(result=True, msg='Address added!', added_address=added_address.to_dict())
+
+@workplace_api_bp.route('/add_workplace')
+def api_add_workplace():
+    args = request.args
+    if 'name' and 'type' and 'address_id' and 'status' in args:
+        wp_name = args.get('name')
+        wp_type = args.get('type')
+        wp_address_id = args.get('address_id')
+        wp_status = args.get('status')
+    else:
+        return jsonify(result=False, msg='Example usage: /add_workplace?name=ABC&type=DEF&address_id=14&status=3')
+
+    if db.get_workplace_with_name(wp_name):
+        return jsonify(result=False, msg='Name used before!')
+
+    address = db.get_address_with_id(wp_address_id)
+    added_workplace = db.add_workplace(wp_name, wp_type, address, wp_status)
+    return jsonify(result=True, msg='Workplace added!', added_workplace=added_workplace.to_dict())

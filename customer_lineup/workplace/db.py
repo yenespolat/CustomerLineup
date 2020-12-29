@@ -19,6 +19,11 @@ def add_address(district_ref, latitude, longitude):
     return address
 
 @db_session
+def get_address_with_id(address_id):
+    address = Address(id=address_id)
+    return address
+
+@db_session
 def get_all_addresses():
     addresses = Address.select(lambda a: a.id > 0)
     return addresses
