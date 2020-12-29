@@ -115,7 +115,7 @@ def api_add_city():
     args = request.args
     if 'city' in args:
         city_name = args.get('city')
-    if db.get_district_with_name(city_name) is None:
+    if db.get_city_with_name(city_name) is None:
         added_city = db.add_city(city_name)
     else:
         return jsonify(result=False, msg='You\'ve added this city before!')
