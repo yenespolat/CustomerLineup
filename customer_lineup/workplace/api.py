@@ -35,7 +35,7 @@ def get_workplace():
     latitude = workplace.address_ref.latitude
     longitude = workplace.address_ref.longitude
     manager = workplace.managers_set
-    return jsonify(result=True, name=workplace.name, id=workplace.id, type=workplace.type, status=workplace.status, city=city, district=district, manager=manager, latitude=latitude, lonitude=longitude)
+    return jsonify(result=True, name=workplace.name, id=workplace.id, type=workplace.type, status=workplace.status, city=city, district=district, manager=manager.to_dict(), latitude=latitude, lonitude=longitude)
 
 @workplace_api_bp.route('/get_all_addresses')
 def get_all_addresses():
