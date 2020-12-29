@@ -139,7 +139,7 @@ def api_add_district():
 @workplace_api_bp.route('/add_address')
 def api_add_address():
     args = request.args
-    if 'district' and 'lat' and 'long' in args:
+    if 'district' in args and 'lat' in args and 'long' in args:
         district_name = args.get('district')
         latitude = args.get('lat')
         longitude = args.get('long')
@@ -156,7 +156,7 @@ def api_add_address():
 @workplace_api_bp.route('/add_workplace')
 def api_add_workplace():
     args = request.args
-    if 'name' and 'type' and 'address_id' and 'status' in args:
+    if 'name' in args and 'type' in args and 'address_id' in args and 'status' in args:
         wp_name = args.get('name')
         wp_type = args.get('type')
         wp_address_id = args.get('address_id')
