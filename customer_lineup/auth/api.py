@@ -4,19 +4,6 @@ import customer_lineup.workplace.db as wp_db
 
 auth_api_bp = Blueprint('auth_api_bp', __name__)
 
-
-@auth_api_bp.route('/example')
-def example_api():
-    # Example for http://127.0.0.1:5000/api/auth/example?arg0=55&arg1=asd&arg1=qwe
-    print("request.args:\t", request.args, "\n")
-    for i in request.args:
-        print("arg:\t\t", i)
-        print("get:\t\t", request.args.get(i))
-        print("getlist:\t", request.args.getlist(i))
-        print()
-    arg0 = request.args.get('arg0')
-    return jsonify(result=True, msg="Hello world", data=arg0)
-
 @auth_api_bp.route('/add_user')
 def api_add_webuser():
     args = request.args
@@ -48,6 +35,18 @@ def api_get_user():
         return jsonify(result=False, msg='User not found!')
 
     return jsonify(result=True, webuser=webuser.to_dict())
+
+@auth_api_bp.route('get_all_users')
+def api_get_all_users():
+    users = db.get_all_users()
+    if users is None:
+        return jsonify(result=False, msg='No users registered!')
+
+    user_list = []
+    for user in users:
+        user_list.append(user.to_dict())
+
+    return jsonify(result=True, users=user_list)
 
 @auth_api_bp.route('/assign_user_to_wp')
 def api_assign_user_to_wp():

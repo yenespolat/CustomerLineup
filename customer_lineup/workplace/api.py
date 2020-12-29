@@ -3,19 +3,6 @@ import customer_lineup.workplace.db as db
 
 workplace_api_bp = Blueprint('workplace_api_bp', __name__)
 
-
-@workplace_api_bp.route('/example')
-def example_api():
-    # Example for http://127.0.0.1:5000/api/workplace/example?arg0=55&arg1=asd&arg1=qwe
-    print("request.args:\t", request.args, "\n")
-    for i in request.args:
-        print("arg:\t\t", i)
-        print("get:\t\t", request.args.get(i))
-        print("getlist:\t", request.args.getlist(i))
-        print()
-    arg0 = request.args.get('arg0')
-    return jsonify(result=True, msg="Hello world", data=arg0)
-
 @workplace_api_bp.route('/get_workplace')
 def get_workplace():
     args = request.args
@@ -34,8 +21,18 @@ def get_workplace():
     district = workplace.address_ref.district_ref.district
     latitude = workplace.address_ref.latitude
     longitude = workplace.address_ref.longitude
-    manager = workplace.managers_set
-    return jsonify(result=True, name=workplace.name, id=workplace.id, type=workplace.type, status=workplace.status, city=city, district=district, manager=manager.to_dict(), latitude=latitude, lonitude=longitude)
+
+    managers = workplace.managers_set
+    manager_list = []
+    for manager in managers:
+        manager_list.append(manager.to_dict())
+
+    comments = workplace.comments_set
+    comment_list = []
+    for comment in comments:
+        comment_list.append(comment.to_dict())
+
+    return jsonify(result=True, name=workplace.name, id=workplace.id, wptype=workplace.type, status=workplace.status, city=city, district=district, managers=manager_list, latitude=latitude, lonitude=longitude, comments=comment_list)
 
 @workplace_api_bp.route('/get_all_addresses')
 def get_all_addresses():

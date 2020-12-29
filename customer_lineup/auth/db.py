@@ -17,6 +17,11 @@ def get_webuser_with_email(email):
     return webuser
 
 @db_session
+def get_all_users():
+    webusers = WebUser.select(lambda w: w.id > 0)
+    return webusers
+
+@db_session
 def asign_user_to_workplace(user_ref, wplace_ref):
     user_ref.managed_workplace_ref = wplace_ref
     return
