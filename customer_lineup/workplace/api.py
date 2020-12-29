@@ -115,8 +115,10 @@ def api_add_city():
     args = request.args
     if 'city' in args:
         city_name = args.get('city')
+    if db.get_district_with_name(city_name) is None:
         added_city = db.add_city(city_name)
-
+    else:
+        return jsonify(result=False, msg='You\'ve added this city before!')
     return jsonify(result=True, msg='City added!', added_city=added_city.to_dict())
 
 @workplace_api_bp.route('/add_district')
@@ -129,6 +131,7 @@ def api_add_district():
         city = db.get_city_with_name(city_name)
     if city is None:
         return jsonify(result=False, msg='You should add city before adding district!')
-
+    if db.get_district_with_name(district_name) is not None:
+        return jsonify(result=False, msg='You\'ve added this district before!')
     added_district = db.add_district(district_name, city)
     return jsonify(result=True, msg='District added to given city!', added_district=added_district.to_dict())
