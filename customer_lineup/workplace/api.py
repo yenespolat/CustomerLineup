@@ -84,7 +84,20 @@ def get_district():
         district_name = args.get('district')
         district = db.get_district_with_name(district_name)
 
-    if district == None:
+    if district is None:
         return jsonify(result=False, msg='District not found!')
 
     return jsonify(result=True, district_id=district.id, district_name=district.district)
+
+@workplace_api_bp.route('/get_city_districts')
+def get_city_districts():
+    args = request.args
+    if 'city' in args:
+        city_name = args.get('city')
+        city = db.get_city_with_name(city_name)
+
+    if city is None:
+        return jsonify(result=False, msg='City not found!')
+
+    districts = db.get_all_districts_with_city_ref(city)
+    return jsonify(result=True, districts=districts.to_dict())
