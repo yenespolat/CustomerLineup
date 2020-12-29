@@ -109,3 +109,26 @@ def get_city_districts():
         district_list.append(district.to_dict())
 
     return jsonify(result=True, districts=district_list)
+
+@workplace_api_bp.route('/add_city')
+def api_add_city():
+    args = request.args
+    if 'city' in args:
+        city_name = args.get('city')
+        added_city = db.add_city(city_name)
+
+    return jsonify(result=True, msg='City added!', added_city=added_city.to_dict())
+
+@workplace_api_bp.route('/add_district')
+def api_add_district():
+    args = request.args
+    if 'district' in args:
+        district_name = args.get('district')
+    if 'city' in args:
+        city_name = args.get('city')
+        city = db.get_city_with_name(city_name)
+    if city is None:
+        return jsonify(result=False, msg='You should add city before adding district!')
+
+    added_district = db.add_district(district_name, city)
+    return jsonify(result=True, msg='District added to given city!', added_district=added_district.to_dict())
