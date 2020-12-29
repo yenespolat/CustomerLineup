@@ -28,6 +28,9 @@ def api_add_webuser():
     else:
         return jsonify(result=False, msg='Example usage: /add_user?name=ABC&surname=DEF&email=ghi@jkl.com&user_type=3')
 
+    if db.get_webuser_with_email(email) is not None:
+        return jsonify(result=False, msg='Email used before!')
+
     added_webuser = db.add_webuser(email, name, surname, user_type)
     return jsonify(result=True, msg='User added!', added_webuser=added_webuser.to_dict())
 
