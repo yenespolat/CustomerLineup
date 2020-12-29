@@ -1,6 +1,4 @@
 from customer_lineup.utils.db_models import *
-from datetime import datetime
-
 
 @db_session
 def add_comment_wo_qelement(webuser_ref, workplace_ref, score, comment):

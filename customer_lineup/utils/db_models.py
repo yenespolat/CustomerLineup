@@ -61,8 +61,8 @@ class Address(db.Entity):
 
 class QueueElement(db.Entity):
     id = PrimaryKey(int, auto=True)
-    web_users_ref = Required(WebUser)
-    workplaces_ref = Required(Workplace)
+    web_users_ref = Required(WebUser)       #DEĞİŞMELİ web_user_ref
+    workplaces_ref = Required(Workplace)    ##DEĞİŞMELİ workplace_ref
     status = Required(int)
     # 1: Sıra alındı
     # 2: Sıradan çıkıldı
