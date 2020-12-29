@@ -27,7 +27,7 @@ def api_enqueue():  #status'a gerek yok, çünkü direk 1 olarak ekleniyor
     return jsonify(result=True, msg='User enqueued.', enqueued=enqueued.to_dict())
 
 @queue_api_bp.route('/dequeue')
-def api_change_dequeue():
+def api_dequeue():
     args = request.args
     if 'status' in args and 'queue_id' in args:
         queue_id = args.get('queue_id')
@@ -38,7 +38,7 @@ def api_change_dequeue():
         status = args.get('status')
         queue = db.get_active_queue(user_id)
     else:
-        return jsonify(result=False, msg='Example usage: /change_status?queue_id=1&status=3 or \n /change_status?user_id=1&status=2')
+        return jsonify(result=False, msg='Example usage: /dequeue?queue_id=1&status=3 or \n /change_status?user_id=1&status=2')
 
     if queue is None:
         return jsonify(result=False, msg='User not in queue!')
