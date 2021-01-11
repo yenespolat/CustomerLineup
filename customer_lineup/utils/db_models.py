@@ -29,6 +29,7 @@ class Workplace(db.Entity):
     id = PrimaryKey(int, auto=True)
     name = Required(str)
     type = Required(str)
+    image_url = Required(str)
     address_ref = Required('Address')
     managers_set = Set(WebUser)
     queue_elements_set = Set('QueueElement')
@@ -50,7 +51,8 @@ class Workplace(db.Entity):
             "staff_warning_limit": self.staff_warning_limit,
             "created_time": self.created_time,
             "status": self.status,
-            "address": self.address_ref.custom_dict()
+            "image_url": self.image_url,
+            "address": self.address_ref.custom_dict(),
         }
 
 
@@ -121,10 +123,10 @@ else:
 
 try:
     db.generate_mapping(create_tables=True)
-except (ProgrammingError, IntegrityError) as e:
+except (ProgrammingError, IntegrityError, OperationalError) as e:
     print(type(e), e)
     db.drop_all_tables(with_all_data=True)
-    db.generate_mapping(create_tables=True)
+    db.generate_mapping()
 
 if __name__ == '__main__':
     with db_session:
@@ -139,12 +141,15 @@ if __name__ == '__main__':
             Workplace(
                 name="Bim", type="Market", status=Workplace.STATUS.NOW_OPEN,
                 address_ref=Address(district_ref=sariyer, latitude=41.0990, longitude=29.0231),
+                image_url="https://www.bim.com.tr/templates/images/bim-logo-single.png"
             )
             Workplace(
                 name="Şok", type="Market", status=Workplace.STATUS.NOW_OPEN,
                 address_ref=Address(district_ref=sariyer, latitude=41.1990, longitude=29.1231),
+                image_url="https://upload.wikimedia.org/wikipedia/tr/3/3e/%C5%9Eok_Logo.png",
             )
             Workplace(
                 name="Ptt", type="Kargo", status=Workplace.STATUS.NOW_OPEN,
                 address_ref=Address(district_ref=sariyer, latitude=41.1590, longitude=29.1931),
+                image_url="https://ayb.akinoncdn.com/static_omnishop/ayb587/assets/img/logo%40a101-2x.png",
             )

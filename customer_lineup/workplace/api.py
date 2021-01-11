@@ -53,6 +53,11 @@ def get_workplaces_api():
 
     workplaces = db.get_workplaces(**workplace_filter)
 
+    except_ids = request.args.get("except_ids")
+    if except_ids:
+        except_ids = [int(i) for i in except_ids.split(",") if i.isdecimal()]
+        workplaces = workplaces.filter(lambda wp: wp.id not in except_ids)
+
     return jsonify(result=True, workplaces=[wp.custom_dict() for wp in workplaces])
 
 
