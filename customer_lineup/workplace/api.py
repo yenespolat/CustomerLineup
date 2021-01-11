@@ -3,6 +3,7 @@ import customer_lineup.workplace.db as db
 
 workplace_api_bp = Blueprint('workplace_api_bp', __name__)
 
+
 @workplace_api_bp.route('/get_workplace')
 def get_workplace():
     args = request.args
@@ -32,7 +33,28 @@ def get_workplace():
     for comment in comments:
         comment_list.append(comment.to_dict())
 
-    return jsonify(result=True, name=workplace.name, id=workplace.id, wptype=workplace.type, status=workplace.status, city=city, district=district, managers=manager_list, latitude=latitude, lonitude=longitude, comments=comment_list)
+    return jsonify(result=True, name=workplace.name, id=workplace.id, wptype=workplace.type, status=workplace.status,
+                   city=city, district=district, managers=manager_list, latitude=latitude, lonitude=longitude,
+                   comments=comment_list)
+
+
+@workplace_api_bp.route('/get_workplaces')
+def get_workplaces_api():
+    workplace_filter = {}
+    city_id = request.args.get("city_id")
+    district_id = request.args.get("district_id")
+    wp_type = request.args.get("type")
+    if district_id:
+        workplace_filter["district_ref"] = db.get_district_with_id(district_id=district_id)
+    if city_id:
+        workplace_filter["city_ref"] = db.get_city_with_id(city_id=city_id)
+    if wp_type:
+        workplace_filter["type"] = wp_type
+
+    workplaces = db.get_workplaces(**workplace_filter)
+
+    return jsonify(result=True, workplaces=[wp.custom_dict() for wp in workplaces])
+
 
 @workplace_api_bp.route('/get_all_addresses')
 def get_all_addresses():
@@ -57,6 +79,7 @@ def get_all_addresses():
 
     return jsonify(result=True, addresses=a_list)
 
+
 @workplace_api_bp.route('/get_city')
 def get_city():
     args = request.args
@@ -73,6 +96,7 @@ def get_city():
 
     return jsonify(result=True, city_id=city.id, city_name=city.city)
 
+
 @workplace_api_bp.route('/get_district')
 def get_district():
     args = request.args
@@ -88,6 +112,7 @@ def get_district():
         return jsonify(result=False, msg='District not found!')
 
     return jsonify(result=True, district_id=district.id, district_name=district.district)
+
 
 @workplace_api_bp.route('/get_city_districts')
 def get_city_districts():
@@ -110,6 +135,7 @@ def get_city_districts():
 
     return jsonify(result=True, districts=district_list)
 
+
 @workplace_api_bp.route('/add_city')
 def api_add_city():
     args = request.args
@@ -120,6 +146,7 @@ def api_add_city():
     else:
         return jsonify(result=False, msg='You\'ve added this city before!')
     return jsonify(result=True, msg='City added!', added_city=added_city.to_dict())
+
 
 @workplace_api_bp.route('/add_district')
 def api_add_district():
@@ -135,6 +162,7 @@ def api_add_district():
         return jsonify(result=False, msg='You\'ve added this district before!')
     added_district = db.add_district(district_name, city)
     return jsonify(result=True, msg='District added to given city!', added_district=added_district.to_dict())
+
 
 @workplace_api_bp.route('/add_address')
 def api_add_address():
@@ -152,6 +180,7 @@ def api_add_address():
 
     added_address = db.add_address(district, latitude, longitude)
     return jsonify(result=True, msg='Address added!', added_address=added_address.to_dict())
+
 
 @workplace_api_bp.route('/add_workplace')
 def api_add_workplace():

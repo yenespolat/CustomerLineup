@@ -42,6 +42,17 @@ class Workplace(db.Entity):
         NOW_OPEN = 2
         NOW_CLOSE = 3
 
+    def custom_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "type": self.type,
+            "staff_warning_limit": self.staff_warning_limit,
+            "created_time": self.created_time,
+            "status": self.status,
+            "address": self.address_ref.custom_dict()
+        }
+
 
 class City(db.Entity):
     id = PrimaryKey(int, auto=True)
@@ -62,6 +73,15 @@ class Address(db.Entity):
     district_ref = Required(District)
     latitude = Required(float)
     longitude = Required(float)
+
+    def custom_dict(self):
+        return {
+            "id": self.id,
+            "city": self.district_ref.city_ref.city,
+            "district": self.district_ref.district,
+            "latitude": self.latitude,
+            "longitude": self.longitude
+        }
 
 
 class QueueElement(db.Entity):
@@ -108,5 +128,23 @@ except (ProgrammingError, IntegrityError) as e:
 
 if __name__ == '__main__':
     with db_session:
-        # Initialize operations
-        pass
+        sariyer = District.get(district="Sarıyer")
+        if not sariyer:
+            istanbul = City.get(city="İstanbul")
+            if not istanbul:
+                istanbul = City(city="İstanbul")
+            sariyer = District(district="Sarıyer", city_ref=istanbul)
+
+        if Workplace.select().count() == 0:
+            Workplace(
+                name="Bim", type="Market", status=Workplace.STATUS.NOW_OPEN,
+                address_ref=Address(district_ref=sariyer, latitude=41.0990, longitude=29.0231),
+            )
+            Workplace(
+                name="Şok", type="Market", status=Workplace.STATUS.NOW_OPEN,
+                address_ref=Address(district_ref=sariyer, latitude=41.1990, longitude=29.1231),
+            )
+            Workplace(
+                name="Ptt", type="Kargo", status=Workplace.STATUS.NOW_OPEN,
+                address_ref=Address(district_ref=sariyer, latitude=41.1590, longitude=29.1931),
+            )
