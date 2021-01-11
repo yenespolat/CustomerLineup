@@ -35,10 +35,10 @@ app.register_blueprint(queue_page_bp, url_prefix="/queue")
 app.register_blueprint(workplace_api_bp, url_prefix="/api/workplace")
 app.register_blueprint(workplace_page_bp, url_prefix="/workplace")
 
+
 @app.route('/')
 def welcome():
     return 'Welcome to Customer Line Up!'
-
 
 
 if __name__ == '__main__':

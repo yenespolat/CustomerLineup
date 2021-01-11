@@ -1,8 +1,47 @@
 from flask import Blueprint, jsonify, request
+from passlib.handlers.pbkdf2 import pbkdf2_sha256 as hasher
+
 import customer_lineup.auth.db as db
 import customer_lineup.workplace.db as wp_db
+from customer_lineup.auth.utils import create_web_user_token, decode_token
 
 auth_api_bp = Blueprint('auth_api_bp', __name__)
+
+
+@auth_api_bp.route("/register", methods=["POST"])
+def register_api():
+    form = request.form
+    if db.get_webuser_with_email(form["email_address"]) is not None:
+        return jsonify(result=False, msg='Email used before!')
+    password_hash = hasher.hash(form["password"])
+    web_user = db.add_webuser(
+        name=form["name"], surname=form["surname"], phone_number=form["phone_number"],
+        email=form["email_address"], password_hash=password_hash
+    )
+    token = create_web_user_token(web_user=web_user)
+    return jsonify(result=True, msg='User added!', token=token, web_user=web_user.to_dict())
+
+
+@auth_api_bp.route("/get_web_user_token", methods=["POST"])
+def get_web_user_token_api():
+    form = request.form
+    web_user = db.get_webuser_with_email(form["email_address"])
+    if not (web_user and hasher.verify(form["password"], web_user.password_hash)):
+        return jsonify(result=False, msg='Email or password is incorrect.')
+    token = create_web_user_token(web_user=web_user)
+    return jsonify(result=True, msg='User added!', token=token, web_user=web_user.to_dict())
+
+
+@auth_api_bp.route('user_from_token')
+def user_from_token_api():
+    token = request.headers.get("token")
+    data = decode_token(token=token)
+    if data:
+        web_user = db.get_webuser_with_id(id=data["web_user_id"])
+        if web_user:
+            return jsonify(result=True, web_user=web_user.to_dict())
+    return jsonify(result=False)
+
 
 @auth_api_bp.route('/add_user')
 def api_add_webuser():
@@ -21,6 +60,7 @@ def api_add_webuser():
     added_webuser = db.add_webuser(email, name, surname, user_type)
     return jsonify(result=True, msg='User added!', added_webuser=added_webuser.to_dict())
 
+
 @auth_api_bp.route('/get_user')
 def api_get_user():
     args = request.args
@@ -36,6 +76,7 @@ def api_get_user():
 
     return jsonify(result=True, webuser=webuser.to_dict())
 
+
 @auth_api_bp.route('get_all_users')
 def api_get_all_users():
     users = db.get_all_users()
@@ -47,6 +88,7 @@ def api_get_all_users():
         user_list.append(user.to_dict())
 
     return jsonify(result=True, users=user_list)
+
 
 @auth_api_bp.route('/assign_user_to_wp')
 def api_assign_user_to_wp():
@@ -63,4 +105,5 @@ def api_assign_user_to_wp():
 
     workplace = wp_db.get_workplace_with_id(workplace_id)
     db.asign_user_to_workplace(webuser, workplace)
-    return jsonify(result=True, user=webuser.name + ' ' + webuser.surname, workplace=workplace.name, msg='User assigned to workplace as manager.')
+    return jsonify(result=True, user=webuser.name + ' ' + webuser.surname, workplace=workplace.name,
+                   msg='User assigned to workplace as manager.')

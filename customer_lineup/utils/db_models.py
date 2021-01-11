@@ -9,17 +9,20 @@ db = Database()
 class WebUser(db.Entity):
     id = PrimaryKey(int, auto=True)
     email_address = Required(str, unique=True)
+    password_hash = Optional(str)
     phone_number = Optional(str)
     name = Optional(str)
     surname = Optional(str)
     user_type = Optional(int)
-    # 1: Admin
-    # 2: Workplace manager
-    # 3: Customer
     queue_elements_set = Set('QueueElement')
     comments_set = Set('Comment')
     managed_workplace_ref = Optional('Workplace')
     registration_time = Required(datetime)
+
+    class USER_TYPE:
+        ADMIN = 1
+        WORKPLACE_MANAGER = 2
+        CUSTOMER = 3
 
 
 class Workplace(db.Entity):
@@ -32,10 +35,12 @@ class Workplace(db.Entity):
     staff_warning_limit = Optional(int)  # Bekleme süresi kaçı geçerse ek personel uyarısı versin?
     created_time = Required(datetime, default=lambda: datetime.now())
     status = Required(int)
-    # 1: Sistemden ayrılmış
-    # 2: İşyeri şu an açık
-    # 3: İş yeri şu an kapalı
     comments_set = Set('Comment')
+
+    class STATUS:
+        PASSIVE = 1
+        NOW_OPEN = 2
+        NOW_CLOSE = 3
 
 
 class City(db.Entity):
@@ -61,8 +66,8 @@ class Address(db.Entity):
 
 class QueueElement(db.Entity):
     id = PrimaryKey(int, auto=True)
-    web_users_ref = Required(WebUser)       #DEĞİŞMELİ web_user_ref
-    workplaces_ref = Required(Workplace)    ##DEĞİŞMELİ workplace_ref
+    web_users_ref = Required(WebUser)  # DEĞİŞMELİ web_user_ref
+    workplaces_ref = Required(Workplace)  ##DEĞİŞMELİ workplace_ref
     status = Required(int)
     # 1: Sıra alındı
     # 2: Sıradan çıkıldı
@@ -87,13 +92,19 @@ class Comment(db.Entity):
     queue_element_ref = Optional(QueueElement)
 
 
-DATABASE_URL = 'postgres://keundksfanucgq:0b9bf52a9ba31b333562f7ec42304631aa48a66c09badf4b96900ccae6329805@ec2-54-159-107-189.compute-1.amazonaws.com:5432/ddc7mu3s7k4o9o'  #os.getenv("DATABASE_URL")
-#if os.getenv("DATABASE_URL"):
-db.bind(provider="postgres", dsn=DATABASE_URL)
-#else:
-#    db.bind(provider="sqlite", filename='database.sqlite', create_db=True)
+# DATABASE_URL = 'postgres://keundksfanucgq:0b9bf52a9ba31b333562f7ec42304631aa48a66c09badf4b96900ccae6329805@ec2-54-159-107-189.compute-1.amazonaws.com:5432/ddc7mu3s7k4o9o'  #os.getenv("DATABASE_URL")
+DATABASE_URL = os.getenv("DATABASE_URL")
+if os.getenv("DATABASE_URL"):
+    db.bind(provider="postgres", dsn=DATABASE_URL)
+else:
+    db.bind(provider="sqlite", filename='database.sqlite', create_db=True)
 
-db.generate_mapping(create_tables=True)
+try:
+    db.generate_mapping(create_tables=True)
+except (ProgrammingError, IntegrityError) as e:
+    print(type(e), e)
+    db.drop_all_tables(with_all_data=True)
+    db.generate_mapping(create_tables=True)
 
 if __name__ == '__main__':
     with db_session:
