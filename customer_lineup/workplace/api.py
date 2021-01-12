@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
 import customer_lineup.workplace.db as db
+from customer_lineup.auth.authorization import application_token_required
 
 workplace_api_bp = Blueprint('workplace_api_bp', __name__)
 
@@ -39,6 +40,7 @@ def get_workplace():
 
 
 @workplace_api_bp.route('/get_workplaces')
+@application_token_required
 def get_workplaces_api():
     workplace_filter = {}
     city_id = request.args.get("city_id")

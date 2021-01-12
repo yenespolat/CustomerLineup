@@ -43,6 +43,10 @@ class Workplace(db.Entity):
         NOW_OPEN = 2
         NOW_CLOSE = 3
 
+    class TYPE:
+        BANK = "Bank"
+        MARKET = "Market"
+
     def custom_dict(self):
         return {
             "id": self.id,
@@ -139,17 +143,22 @@ if __name__ == '__main__':
 
         if Workplace.select().count() == 0:
             Workplace(
-                name="Bim", type="Market", status=Workplace.STATUS.NOW_OPEN,
+                name="Bim", type=Workplace.TYPE.MARKET, status=Workplace.STATUS.NOW_OPEN,
                 address_ref=Address(district_ref=sariyer, latitude=41.0990, longitude=29.0231),
                 image_url="https://www.bim.com.tr/templates/images/bim-logo-single.png"
             )
             Workplace(
-                name="Şok", type="Market", status=Workplace.STATUS.NOW_OPEN,
+                name="Şok", type=Workplace.TYPE.MARKET, status=Workplace.STATUS.NOW_OPEN,
                 address_ref=Address(district_ref=sariyer, latitude=41.1990, longitude=29.1231),
                 image_url="https://upload.wikimedia.org/wikipedia/tr/3/3e/%C5%9Eok_Logo.png",
             )
             Workplace(
-                name="Ptt", type="Kargo", status=Workplace.STATUS.NOW_OPEN,
+                name="Ptt", type=Workplace.TYPE.BANK, status=Workplace.STATUS.NOW_OPEN,
                 address_ref=Address(district_ref=sariyer, latitude=41.1590, longitude=29.1931),
+                image_url="https://upload.wikimedia.org/wikipedia/tr/e/e0/Ptt_tr.gif",
+            )
+            Workplace(
+                name="A101", type=Workplace.TYPE.MARKET, status=Workplace.STATUS.NOW_OPEN,
+                address_ref=Address(district_ref=sariyer, latitude=41.0890, longitude=29.0331),
                 image_url="https://ayb.akinoncdn.com/static_omnishop/ayb587/assets/img/logo%40a101-2x.png",
             )

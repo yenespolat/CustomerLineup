@@ -2,7 +2,7 @@ from datetime import datetime
 
 import jwt as jwt
 from flask import current_app
-from jwt import InvalidSignatureError
+from jwt import InvalidSignatureError, DecodeError
 from pony.orm import flush
 
 from customer_lineup.utils.db_models import WebUser
@@ -25,5 +25,5 @@ def create_web_user_token(web_user: WebUser):
 def decode_token(token):
     try:
         return jwt.decode(token, current_app.secret_key, algorithms=['HS256'])
-    except InvalidSignatureError:
+    except (InvalidSignatureError, DecodeError):
         return None

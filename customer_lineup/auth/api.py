@@ -1,14 +1,16 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, g
 from passlib.handlers.pbkdf2 import pbkdf2_sha256 as hasher
 
 import customer_lineup.auth.db as db
 import customer_lineup.workplace.db as wp_db
+from customer_lineup.auth.authorization import application_token_required, web_user_token_required
 from customer_lineup.auth.utils import create_web_user_token, decode_token
 
 auth_api_bp = Blueprint('auth_api_bp', __name__)
 
 
 @auth_api_bp.route("/register", methods=["POST"])
+@application_token_required
 def register_api():
     form = request.form
     if db.get_webuser_with_email(form["email_address"]) is not None:
@@ -23,6 +25,7 @@ def register_api():
 
 
 @auth_api_bp.route("/get_web_user_token", methods=["POST"])
+@application_token_required
 def get_web_user_token_api():
     form = request.form
     web_user = db.get_webuser_with_email(form["email_address"])
@@ -33,14 +36,9 @@ def get_web_user_token_api():
 
 
 @auth_api_bp.route('user_from_token')
+@web_user_token_required
 def user_from_token_api():
-    token = request.headers.get("token")
-    data = decode_token(token=token)
-    if data:
-        web_user = db.get_webuser_with_id(id=data["web_user_id"])
-        if web_user:
-            return jsonify(result=True, web_user=web_user.to_dict())
-    return jsonify(result=False)
+    return jsonify(result=True, web_user=g.web_user.to_dict())
 
 
 @auth_api_bp.route('/add_user')
