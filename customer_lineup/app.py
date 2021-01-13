@@ -39,5 +39,9 @@ app.register_blueprint(workplace_page_bp, url_prefix="/workplace")
 def index():
     return render_template('index.html')
 
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
