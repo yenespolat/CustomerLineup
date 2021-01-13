@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block title %} Login {% endblock %}
+{% block content %}
+<div class="box-login">
+    <form method="POST">
+        <input class="input-login" type="text" name="username" id="username" placeholder="USERNAME">
+        <input class="input-login" type="password" name="password" id="password" placeholder="PASSWORD">
+        <button class="input-login" id="login-btn" type="submit">LOGIN</button>
+    </form>
+    <a href="">
+        <p class="under-box" style="margin-top: 7%;">Reset your password</p>
+    </a>
+    <a href="/auth/register">
+        <p class="under-box">Register</p>
+    </a>
+</div>
+{% endblock %}

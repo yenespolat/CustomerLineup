@@ -1,0 +1,287 @@
+body {
+    font-family: 'Raleway', sans-serif;
+}
+
+body.index {
+    background-image: url("telephone.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: bottom;
+    background-position-x: 90%;
+    background-size: 480px;
+}
+
+.navlink {
+    text-decoration: none;
+    display: inline-flex;
+    margin-left: 8%;
+    font-size: 25px;
+    color: black;
+}
+
+#navlink:hover {
+    background: -webkit-linear-gradient(right,#6c7aff, #fa7165);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#links {
+    position: absolute;
+    right: 8%;
+    top: 8%;
+    width: 27%;
+}
+
+#nav {
+    background-color: brown;
+}
+
+#brand {
+    display: inline-block;
+    position: absolute;
+    left: 8%;
+    top: 4%;
+    background: -webkit-linear-gradient(right, #6c7aff, #fa7165);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight:bold;
+    font-size: 45px;
+}
+
+#slogan {
+    position: absolute;
+    left: 8%;
+    top: 24%;
+}
+
+#registerbtn {
+    border-radius: 20px;
+    height: 45px;
+    width: 200px;
+    background-color: #004d77;
+    border: none;
+    color: white; 
+    font-size: 22px;
+    font-family: 'Raleway', sans-serif;
+    margin-left: 63%;
+    margin-top: 4%;
+}
+
+#registerbtn:hover {
+    animation: hvr 0.3s ease forwards;
+}
+
+@keyframes hvr {
+    from {
+        background-color: #004d77;
+    }
+
+    to {
+        background: -webkit-linear-gradient(right, #6c7aff, #fa7165);
+    }
+}
+
+#stats {
+    position: absolute;
+    left: 10%;
+    top: 64%;
+    width: 100%;
+}
+
+.stats-1 {
+    color: #ffbaac;
+    font-size: 80px;
+    margin: 0;
+}
+
+.stats-2 {
+    color: #ff665e;
+    font-weight: bold;
+    font-size: 35px;
+    margin-top: 12%;
+    text-align: center;
+}
+
+.box-login {
+    background-color: #53a1e0;
+    width: 20%;
+    height: 28.3%;
+    position: absolute;
+    left: 40%;
+    top: 35%;
+    border-radius: 20px;
+    align-self: center;
+}
+
+.box-register {
+    background-color: #53a1e0;
+    width: 38%;
+    height: 27.5%;
+    position: absolute;
+    left: 30%;
+    top: 35%;
+    border-radius: 20px;
+    align-self: center;
+}
+
+.box-profile {
+    background-color: #53a1e0;
+    width: 30%;
+    height: 45%;
+    position: absolute;
+    left: 35%;
+    top: 32.5%;
+    border-radius: 20px;
+    align-self: center;
+}
+
+.box-profile-in {
+    background-color: rgba(255, 255, 255, 0.29);
+    width: 90%;
+    height: 70%;
+    position: absolute;
+    left: 3%;
+    top: 5%;
+    border-radius: 20px;
+    padding-left: 4%;
+}
+
+.box-table-head {
+    background-color: #53a1e0;
+    width: 60%;
+    height: 40px;
+    padding-top: 9px;
+    position: absolute;
+    left: 20%;
+    top: 27.5%;
+    border-radius: 20px;
+    font-size: 22px;
+    color: white;
+}
+
+.box-table-rows {
+    width: 60%;
+    height: auto;
+    position: absolute;
+    left: 20%;
+    top: 36.5%;
+    border-radius: 20px;
+    font-size: 18px;
+}
+
+.table-row {
+    height: 45px;
+    font-size: 20px;
+}
+
+.profile-btn-div {
+    position: absolute;
+    top: 79%;
+    left: 58%;
+}
+
+.profile-btn {
+    transition: 0.1s;
+    background-color: rgba(255, 255, 255, 0.29);
+    border: none;
+    border-radius: 20px;
+    width: 60px;
+    height: 60px;
+    vertical-align: middle;
+}
+
+.profile-btn:hover {
+    background-color: rgba(232, 114, 120, 1);
+}
+
+.profile-text {
+    position: absolute;
+    left: 20%;
+    top: 14%;
+    font-size: 25px;
+    margin-top: 0;
+}
+
+.input-login {
+    background-color:rgba(255, 255, 255, 0.6);
+    border: none;
+    border-radius: 20px;
+    width: 280px;
+    height: 40px;
+    margin-top: 5%;
+    margin-left: 5%;
+    padding-top: 8px;
+    text-indent: 18px;
+    color: #67afff;
+    font-size: 25px;
+}
+
+.input-register {
+    background-color:rgba(255, 255, 255, 0.6);
+    border: none;
+    border-radius: 20px;
+    width: 280px;
+    height: 40px;
+    margin-top: 2.4%;
+    margin-left: 2%;
+    padding-top: 8px;
+    text-indent: 18px;
+    color: #67afff;
+    font-size: 25px;
+}
+
+::placeholder {
+    color: #67afff;
+    font-size: 25px;
+    text-indent: 18px;
+    font-family: 'Raleway', sans-serif;
+}
+
+#login-btn {
+    text-indent: 0;
+    height: 48px;
+    margin-top: 10%;
+    color: white;
+    background-color: rgba(0, 114, 255, 0.38);
+    font-family: 'Raleway', sans-serif;
+    padding-top: 0;
+}
+
+#register-btn {
+    text-indent: 0;
+    height: 48px;
+    margin-top: 5%;
+    margin-left: 27%;
+    color: white;
+    background-color: rgba(0, 114, 255, 0.38);
+    font-family: 'Raleway', sans-serif;
+    padding-top: 0;
+}
+
+#login-btn:hover, #register-btn:hover {
+    transition: 0.1s;
+    background-color:rgba(232, 114, 120, 1);
+}
+
+.under-box {
+    text-align: center;
+    color: #67b1ff;
+    font-size: 20px;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#email, #phone {
+    margin-left: 2%;
+}
+
+input:focus, button:focus {outline: 0;}

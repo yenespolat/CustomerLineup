@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div>
+        <nav id="nav">
+            <a href="/"><p id="brand">CLINEUP</p></a>
+            <span id="links">
+                <a class="navlink" href="/">
+                    <p>HOME</p>
+                </a>
+                <a class="navlink" href="#">
+                    <p>APPLICATION</p>
+                </a>
+                <a class="navlink" href="/auth/login">
+                    <p>LOGIN</p>
+                </a>
+            </span>
+        </nav>
+    </div>
+    {% block content %}{% endblock %}
+</body>
+
+</html>

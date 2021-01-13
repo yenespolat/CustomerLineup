@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask
+from flask import Flask, render_template
 from pony.flask import Pony
 
 from customer_lineup.auth.api import auth_api_bp
@@ -35,11 +35,9 @@ app.register_blueprint(queue_page_bp, url_prefix="/queue")
 app.register_blueprint(workplace_api_bp, url_prefix="/api/workplace")
 app.register_blueprint(workplace_page_bp, url_prefix="/workplace")
 
-
 @app.route('/')
-def welcome():
-    return 'Welcome to Customer Line Up!'
-
+def index():
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

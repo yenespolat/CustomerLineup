@@ -20,3 +20,14 @@ def example_api():
     g.arg0 = request.args.get('arg0')
     g.args = request.args
     return render_template("auth/example_page.html", page_info=LayoutPI(title="Page title"))
+
+@auth_page_bp.route('/login', methods = ['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+    return render_template('login.html')
+
+@auth_page_bp.route('/register')
+def register():
+    return render_template('register.html')
