@@ -5,7 +5,6 @@ from passlib.hash import pbkdf2_sha256 as hasher
 from customer_lineup.auth import db
 from customer_lineup.auth.utils import form_validation_errors_for_register, form_validation_errors_for_login
 from customer_lineup.utils import LayoutPI
-from customer_lineup.utils.db_models import WebUser
 
 auth_page_bp = Blueprint(
     'auth_page_bp', __name__,
@@ -36,13 +35,12 @@ def login():
 
         err_list += form_validation_errors_for_login(email=email, password=password)
         web_user = db.get_webuser_with_email(email=email)
-        if not err_list and web_user and hasher.verify(password, web_user.password_hash) and web_user.user_type in [
-            WebUser.USER_TYPE.WORKPLACE_MANAGER, WebUser.USER_TYPE.ADMIN]:
+        if not err_list and web_user and hasher.verify(password, web_user.password_hash):
             login_user(web_user)
             next_page = request.args.get("next", url_for("index"))
             return redirect(next_page)
         else:
-            err_list.append("Email or password not correct and this page is for workplace managers")
+            err_list.append("Email or password not correct.")
 
     for err in err_list:
         flash(err, "danger")
@@ -70,8 +68,7 @@ def register():
 
         if not err_list:
             password_hash = hasher.hash(password)
-            db.add_webuser(email=email, name=name, surname=surname,
-                           password_hash=password_hash, user_type=WebUser.USER_TYPE.WORKPLACE_MANAGER)
+            db.add_webuser(email=email, name=name, surname=surname, password_hash=password_hash)
             return redirect(url_for("auth_page_bp.login"))
 
     for err in err_list:
