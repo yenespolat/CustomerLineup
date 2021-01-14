@@ -60,6 +60,9 @@ def register():
         password_verification = request.form['password']
         email = request.form['email']
 
+        web_user = db.get_webuser_with_email(email=email)
+        if web_user:
+            err_list.append("This email address already exist.")
         if password_verification != password:
             err_list.append("Passwords do not match.")
         err_list += form_validation_errors_for_register(name=name, surname=surname, email=email, password=password,
