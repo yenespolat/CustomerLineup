@@ -1,6 +1,8 @@
 from flask import Blueprint, request, render_template, g
-
 from customer_lineup.utils import LayoutPI
+from customer_lineup.utils.db_models import *
+import requests
+
 
 auth_page_bp = Blueprint(
     'auth_page_bp', __name__,
@@ -23,11 +25,20 @@ def example_api():
 
 @auth_page_bp.route('/login', methods = ['GET', 'POST'])
 def login():
+    user = requests.get('http://127.0.0.1:5000/api/auth/get_user?id=1')
+    print(user.text)
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
     return render_template('login.html')
 
-@auth_page_bp.route('/register')
+@auth_page_bp.route('/register', methods = ['GET', 'POST'])
 def register():
+    if request.method == 'POST':
+        name = request.form['name']
+        surname = request.form['surname']
+        email = request.form['email']
+        password = request.form['password']
+        added_user = requests.get(f'http://127.0.0.1:5000/api/auth/add_user?name={name}&surname={surname}&email={email}&user_type={WebUser.USER_TYPE.CUSTOMER}')
+        print(added_user.text) #eklenemedi şeklinde modal gösterilebilir
     return render_template('register.html')

@@ -12,26 +12,19 @@
 </div>
 <div class="box-table-rows">
     <table style="width: 100%;">
+        {% for queue in queues %}
         <tr class="table-row">
-            <td style="width: 50%; text-align: left; padding-left: 8%;">BIM Sancaktepe 2</td>
-            <td style="width: 25%; text-align: center;">21/12/2020 17:43</td>
-            <td style="width: 25%; text-align: center;">6/10</td>
+            <td style="width: 50%; text-align: left; padding-left: 8%;">{{ queue['workplaces_ref'] }}</td>
+            <td style="width: 25%; text-align: center;">{{ queue['status_time'] }}</td>
+            <td style="width: 25%; text-align: center;">
+            {% if queue['comment_ref'] %}
+            9/10
+            {% else %}
+            <a href="#">vote</a>
+            {% endif %}
+            </td>
         </tr>
-        <tr class="table-row">
-            <td style="width: 50%; text-align: left; padding-left: 8%;">PTT Kadıköy 1</td>
-            <td style="width: 25%; text-align: center;">14/12/2020 13:39</td>
-            <td style="width: 25%; text-align: center;">9/10</td>
-        </tr>
-        <tr class="table-row">
-            <td style="width: 50%; text-align: left; padding-left: 8%;">QNB Ziverbey 1</td>
-            <td style="width: 25%; text-align: center;">01/12/2020 10:12</td>
-            <td style="width: 25%; text-align: center;"><a href="#">vote</a></td>
-        </tr>
-        <tr class="table-row">
-            <td style="width: 50%; text-align: left; padding-left: 8%;">Turkcell Yenisahra 4</td>
-            <td style="width: 25%; text-align: center;">16/11/2020 17:59</td>
-            <td style="width: 25%; text-align: center;">10/10</td>
-        </tr>
+        {% endfor %}
     </table>
 </div>
 {% endblock %}

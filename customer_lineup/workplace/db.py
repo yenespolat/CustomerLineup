@@ -3,7 +3,7 @@ from customer_lineup.utils.db_models import *
 
 @db_session
 def add_workplace(name, type, address_ref, status):
-    workplace = Workplace(name=name, type=type, address_ref=address_ref, status=status)
+    workplace = Workplace(name=name, type=type, address_ref=address_ref, status=status, image_url='None')
     return workplace
 
 

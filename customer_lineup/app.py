@@ -9,8 +9,8 @@ from customer_lineup.blueprint_template.api import blueprint_template_api_bp
 from customer_lineup.blueprint_template.page import blueprint_template_page_bp
 from customer_lineup.comment.api import comment_api_bp
 from customer_lineup.comment.page import comment_page_bp
-from customer_lineup.queue.api import queue_api_bp
-from customer_lineup.queue.page import queue_page_bp
+from customer_lineup.queue_.api import queue_api_bp
+from customer_lineup.queue_.page import queue_page_bp
 from customer_lineup.utils import CustomJSONEncoder
 from customer_lineup.workplace.api import workplace_api_bp
 from customer_lineup.workplace.page import workplace_page_bp

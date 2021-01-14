@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-import customer_lineup.queue.db as db
+import customer_lineup.queue_.db as db
 import customer_lineup.auth.db as auth_db
 import customer_lineup.workplace.db as wp_db
 
@@ -19,7 +19,7 @@ def api_enqueue():  #status'a gerek yok, çünkü direk 1 olarak ekleniyor
 
     user = auth_db.get_webuser_with_id(user_id)
     if db.get_active_queue(user) is not None:
-        return jsonify(result=False, msg='User already in another queue!')
+        return jsonify(result=False, msg='User already in another queue_!')
 
     workplace = wp_db.get_workplace_with_id(workplace_id)
     enqueued = db.add_queue_element(user, workplace, 1, type, waiting_person)
@@ -41,7 +41,7 @@ def api_dequeue():
         return jsonify(result=False, msg='Example usage: /dequeue?queue_id=1&status=3 or \n /change_status?user_id=1&status=2')
 
     if queue is None:
-        return jsonify(result=False, msg='User not in queue!')
+        return jsonify(result=False, msg='User not in queue_!')
 
     db.change_queue_status(queue.id, status)
     return jsonify(result=True, msg='Status changed.', queue=queue.to_dict())
@@ -56,7 +56,6 @@ def api_user_history():
 
     user = auth_db.get_webuser_with_id(user_id)
     queues = db.get_all_user_queues(user)
-
     queue_list = []
     for queue in queues:
         queue_list.append(queue.to_dict())
