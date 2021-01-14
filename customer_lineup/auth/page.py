@@ -25,8 +25,6 @@ def example_api():
 
 @auth_page_bp.route('/login', methods = ['GET', 'POST'])
 def login():
-    user = requests.get('http://127.0.0.1:5000/api/auth/get_user?id=1')
-    print(user.text)
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
