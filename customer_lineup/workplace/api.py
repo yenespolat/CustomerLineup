@@ -35,12 +35,12 @@ def get_workplace():
         comment_list.append(comment.to_dict())
 
     return jsonify(result=True, name=workplace.name, id=workplace.id, wptype=workplace.type, status=workplace.status,
-                   city=city, district=district, managers=manager_list, latitude=latitude, lonitude=longitude,
+                   city=city, district=district, managers=manager_list, latitude=latitude, longitude=longitude,
                    comments=comment_list)
 
 
 @workplace_api_bp.route('/get_workplaces')
-@application_token_required
+#@application_token_required
 def get_workplaces_api():
     workplace_filter = {}
     city_id = request.args.get("city_id")

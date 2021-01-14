@@ -1,6 +1,6 @@
 from flask import Blueprint, request, render_template, g
-
 from customer_lineup.utils import LayoutPI
+import requests
 
 workplace_page_bp = Blueprint(
     'workplace_page_bp', __name__,
@@ -20,3 +20,23 @@ def example_api():
     g.arg0 = request.args.get('arg0')
     g.args = request.args
     return render_template("workplace/example_page.html", page_info=LayoutPI(title="Page title"))
+
+@workplace_page_bp.route('/<int:wp_id>')
+def show_workplace(wp_id):
+    workplace = requests.get(f'http://127.0.0.1:5000/api/workplace/get_workplace?id={wp_id}').json()
+    total_score = 0
+    for comment in workplace['comments']:
+        total_score += comment['score']
+        web_user_id = comment['web_user_ref']
+        web_user = requests.get(f'http://127.0.0.1:5000/api/auth/get_user?id={web_user_id}').json()
+        comment['web_user_ref'] = web_user['webuser']['name'] + ' ' + web_user['webuser']['surname']
+    if total_score == 0:
+        avg_score = 'No comments yet'
+    else:
+        avg_score = total_score / len(workplace['comments'])
+    return render_template('workplace.html', workplace=workplace, avg_score=avg_score)
+
+@workplace_page_bp.route('/workplaces')
+def all_wps():
+    wplaces = requests.get(f'http://127.0.0.1:5000/api/workplace/get_workplaces').json()
+    return render_template('workplaces.html', workplaces=wplaces['workplaces'])

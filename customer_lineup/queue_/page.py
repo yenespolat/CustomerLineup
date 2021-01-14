@@ -34,5 +34,10 @@ def queue_hist():
             date_time_obj = datetime.strptime(queue['status_time'], '%Y-%m-%dT%H:%M:%S.%f')
             date_time_str = date_time_obj.strftime("%m/%d/%Y %H:%M")
             queue['status_time'] = date_time_str
+            if queue['comment_ref']:
+                comment_id = queue['comment_ref']
+                comment = requests.get(f'http://127.0.0.1:5000/api/comment/get_comment?id={comment_id}').json()
+                queue['comment_ref'] = comment
+            print(queue['comment_ref']['comment']['score'])
     return render_template('queue-history.html', queues=queues)
 

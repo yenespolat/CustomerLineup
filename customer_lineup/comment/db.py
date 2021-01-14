@@ -7,7 +7,7 @@ def add_comment_wo_qelement(webuser_ref, workplace_ref, score, comment):
 
 @db_session
 def add_comment_with_qelement(webuser_ref, workplace_ref, score, comment, queue_ref):
-    comment = Comment(webuser_ref=webuser_ref, workplace_ref=workplace_ref, score=score, comment=comment, queue_element_ref=queue_ref)
+    comment = Comment(web_user_ref=webuser_ref, workplace_ref=workplace_ref, score=score, comment=comment, queue_element_ref=queue_ref)
     return comment
 
 @db_session

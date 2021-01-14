@@ -78,3 +78,14 @@ def api_workplace_queue():
         user_list.append(user.to_dict())
 
     return jsonify(result=True, user_list=user_list, workplace=workplace.to_dict())
+
+@queue_api_bp.route('get_q')
+def api_get_queue_element():
+    args = request.args
+    if 'id' in args:
+        q_id = args.get('id')
+    else:
+        return jsonify(result=False, msg='Example usage: /get_q?id=1')
+    q_elm = db.get_queue_with_id(q_id)
+
+    return jsonify(result=True, queue_element=q_elm.to_dict())

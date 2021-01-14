@@ -1,6 +1,6 @@
-from flask import Blueprint, request, render_template, g
-
+from flask import Blueprint, request, render_template, g, redirect, url_for
 from customer_lineup.utils import LayoutPI
+import requests
 
 comment_page_bp = Blueprint(
     'comment_page_bp', __name__,
@@ -20,3 +20,16 @@ def example_api():
     g.arg0 = request.args.get('arg0')
     g.args = request.args
     return render_template("comment/example_page.html", page_info=LayoutPI(title="Page title"))
+
+@comment_page_bp.route('/comment/<int:q_id>', methods=['GET', 'POST'])
+def comment(q_id):
+    if request.method == 'POST':
+        score = request.form['score']
+        comment = request.form['comment']
+        added_comment = requests.get(f'http://127.0.0.1:5000/api/comment/add_comment?queue_id={q_id}&score={score}&comment={comment}')
+        return redirect(url_for('queue_page_bp.queue_hist'))
+    q_elm = requests.get(f'http://127.0.0.1:5000/api/queue/get_q?id={q_id}').json()['queue_element']
+    wp_id = q_elm['workplaces_ref']
+    wp = requests.get(f'http://127.0.0.1:5000/api/workplace/get_workplace?id={wp_id}').json()
+    q_elm['workplaces_ref'] = wp['name'] + ' ' + wp['district'] + ' ' + str(wp['id'])
+    return render_template('comment.html', queue_ref=q_elm)

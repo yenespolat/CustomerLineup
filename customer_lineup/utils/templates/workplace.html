@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block title %} WP {% endblock %}
+{% block content %}
+
+<div style="margin-left: 15%; margin-top: 10%">
+    <h1 style="font-family: 'Raleway', sans-serif;">{{ workplace['name'] }} <p style="display: inline-block; font-size: 20px; color: brown;"> 
+        {% if avg_score == 'No comments yet' %}
+        No comments yet
+        {% else %}
+        {{ avg_score }}/10
+        {% endif %}</p></h1>
+</div>
+
+<div
+    style="background-color: #f1f2f3; margin-left: 15%; width: 300px; margin-top: 1%; border: #F8F9FA; border-radius: 20px; height: 30px;">
+    <div style="text-align: center; padding-top: 5px;">
+        <p style="font-family: 'Raleway', sans-serif; display: inline;"> About Workplace </p>
+    </div>
+</div>
+<div style="margin-left: 15%; margin-right: 15%; margin-top: 1%;">
+    <div style="margin-left: 3%;">
+        <h5>Address</h5>
+        <p style="font-family: 'Raleway', sans-serif;">{{ workplace['district'] }} / {{ workplace['city'] }}</p>
+        <h5>Map View</h5>
+        <!-- AIzaSyCU8EXscj0QLaKnrFX8iXplgJI-JRtHGBw -->
+        <iframe width="100%" height="450" frameborder="0" style="border:0"
+            src="https://www.google.com/maps/embed/v1/place?q={{ workplace['latitude'] }},{{ workplace['longitude'] }}&key=AIzaSyCU8EXscj0QLaKnrFX8iXplgJI-JRtHGBw"
+            allowfullscreen></iframe>
+    </div>
+
+</div>
+<div
+    style="background-color: #f1f2f3; margin-left: 15%; width: 300px; margin-top: 1%; border: #F8F9FA; border-radius: 20px; height: 30px;">
+    <div style="text-align: center; padding-top: 5px;">
+        <p style="font-family: 'Raleway', sans-serif; display: inline;"> Comments </p>
+    </div>
+</div>
+<div style="margin-left: 15%; margin-right: 15%; margin-top: 1%;">
+    {% for comment in workplace['comments'] %}
+    <div style="margin-left: 3%;">
+        <h5 style="font-family: 'Raleway', sans-serif; display: inline; color: rgb(26, 148, 156);">{{ comment['web_user_ref'] }}</h5>
+        <p style="font-family: 'Raleway', sans-serif; display: inline; margin-left: 3%; color: brown;">{{ comment['score'] }}/10</p>
+        <p style="font-family: 'Raleway', sans-serif;">{{ comment['comment'] }}</p> <br>
+    </div>
+    {% endfor %}
+</div>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+
+
+
+
+{% endblock %}

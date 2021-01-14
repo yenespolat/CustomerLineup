@@ -6,7 +6,7 @@
         <tr>
             <th style="width: 50%; text-align: left; padding-left: 8%;">WORKPLACE</th>
             <th style="width: 25%;">TIME</th>
-            <th style="width: 25%;">VOTE</th>
+            <th style="width: 25%;">SCORE</th>
         </tr>
     </table>
 </div>
@@ -17,10 +17,10 @@
             <td style="width: 50%; text-align: left; padding-left: 8%;">{{ queue['workplaces_ref'] }}</td>
             <td style="width: 25%; text-align: center;">{{ queue['status_time'] }}</td>
             <td style="width: 25%; text-align: center;">
-            {% if queue['comment_ref'] %}
-            9/10
+            {% if queue['comment_ref'] != None %}
+            {{ queue['comment_ref']['comment']['score'] }}/10
             {% else %}
-            <a href="#">vote</a>
+            <a href="/comment/comment/{{queue['id']}}">vote</a>
             {% endif %}
             </td>
         </tr>
