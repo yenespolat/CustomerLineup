@@ -27,3 +27,13 @@ def decode_token(token):
         return jwt.decode(token, current_app.secret_key, algorithms=['HS256'])
     except (InvalidSignatureError, DecodeError):
         return None
+
+
+def form_validation_errors_for_register(name, surname, email, password, password_verification):
+    err_list = []
+    return err_list
+
+
+def form_validation_errors_for_login(email, password):
+    err_list = []
+    return err_list

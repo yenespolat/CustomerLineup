@@ -1,12 +1,13 @@
 import os
 from datetime import datetime
 
+from flask_login import UserMixin
 from pony.orm import *
 
 db = Database()
 
 
-class WebUser(db.Entity):
+class WebUser(db.Entity, UserMixin):
     id = PrimaryKey(int, auto=True)
     email_address = Required(str, unique=True)
     password_hash = Optional(str)
@@ -23,6 +24,13 @@ class WebUser(db.Entity):
         ADMIN = 1
         WORKPLACE_MANAGER = 2
         CUSTOMER = 3
+
+    def get_id(self):
+        return self.id
+
+    @property
+    def is_active(self):
+        return True
 
 
 class Workplace(db.Entity):

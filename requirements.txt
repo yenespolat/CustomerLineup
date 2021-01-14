@@ -6,3 +6,4 @@ Werkzeug~=1.0.1
 psycopg2
 pyjwt~=2.0.0
 passlib~=1.7.4
+Flask-Login

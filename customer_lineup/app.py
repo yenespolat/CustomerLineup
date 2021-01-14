@@ -1,9 +1,11 @@
 import os
 
 from flask import Flask, render_template
+from flask_login import LoginManager
 from pony.flask import Pony
 
 from customer_lineup.auth.api import auth_api_bp
+from customer_lineup.auth.db import get_webuser_with_id
 from customer_lineup.auth.page import auth_page_bp
 from customer_lineup.blueprint_template.api import blueprint_template_api_bp
 from customer_lineup.blueprint_template.page import blueprint_template_page_bp
@@ -35,13 +37,29 @@ app.register_blueprint(queue_page_bp, url_prefix="/queue")
 app.register_blueprint(workplace_api_bp, url_prefix="/api/workplace")
 app.register_blueprint(workplace_page_bp, url_prefix="/workplace")
 
+lm = LoginManager()
+
+
+@lm.user_loader
+def load_user(wu_id):
+    return get_webuser_with_id(id=wu_id)
+
+
+lm.init_app(app)
+lm.login_message_category = 'danger'
+lm.login_message = u"Please login for access this page."
+lm.login_view = "auth_page_bp.login"
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
 
+
 @app.route('/dashboard')
 def dashboard():
     return render_template('dashboard.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
