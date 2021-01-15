@@ -18,12 +18,21 @@
                 <a class="navlink" href="/">
                     <p>HOME</p>
                 </a>
+                {% if not current_user.is_authenticated %}
                 <a class="navlink" href="#">
                     <p>APPLICATION</p>
                 </a>
                 <a class="navlink" href="/auth/login">
                     <p>LOGIN</p>
                 </a>
+                {% else %}
+                <a class="navlink" href="/auth/profile">
+                    <p>PROFILE</p>
+                </a>
+                <a class="navlink" href="/auth/logout">
+                    <p>LOGOUT</p>
+                </a>
+                {% endif %}
             </span>
         </nav>
     </div>

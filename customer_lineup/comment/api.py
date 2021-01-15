@@ -20,7 +20,7 @@ def api_add_comment():
         added_comment = db.add_comment_wo_qelement(user, workplace, score, 'No comment')
     elif 'queue_id' in args and 'score' in args:
         q_id = args.get('queue_id')
-        q_elm = requests.get(f'http://127.0.0.1:5000/api/queue/get_q?id={q_id}').json()['queue_element']
+        q_elm = requests.get(f'https://customer-lineup-gr31.herokuapp.com//api/queue/get_q?id={q_id}').json()['queue_element']
         wp_id = q_elm['workplaces_ref']
         user_id = q_elm['web_users_ref']
         score = args.get('score')

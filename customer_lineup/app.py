@@ -1,7 +1,7 @@
 import os
 
 from flask import Flask, render_template
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
 from pony.flask import Pony
 
 from customer_lineup.auth.api import auth_api_bp
@@ -21,7 +21,8 @@ app = Flask(
     __name__, instance_relative_config=True,
     template_folder='utils/templates', static_folder='utils/static', static_url_path='/assets'
 )
-app.secret_key = os.getenv("SECRET_KEY")
+app.secret_key = 'secretkey'
+#app.secret_key = os.getenv("SECRET_KEY")
 app.json_encoder = CustomJSONEncoder
 
 Pony(app)
@@ -53,12 +54,9 @@ lm.login_view = "auth_page_bp.login"
 
 @app.route('/')
 def index():
+    if current_user.is_authenticated:
+        print('Giriş Yapıldı ->', current_user.name)
     return render_template('index.html')
-
-
-@app.route('/dashboard')
-def dashboard():
-    return render_template('dashboard.html')
 
 
 if __name__ == '__main__':

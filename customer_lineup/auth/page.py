@@ -1,5 +1,5 @@
 from flask import Blueprint, request, render_template, g, flash, redirect, url_for
-from flask_login import login_user
+from flask_login import login_user, logout_user, login_required
 from passlib.hash import pbkdf2_sha256 as hasher
 
 from customer_lineup.auth import db
@@ -14,7 +14,7 @@ auth_page_bp = Blueprint(
 
 @auth_page_bp.route('/example')
 def example_api():
-    # # Example for http://127.0.0.1:5000/auth/example?arg0=55&arg1=asd&arg1=qwe
+    # # Example for https://customer-lineup-gr31.herokuapp.com//auth/example?arg0=55&arg1=asd&arg1=qwe
     print("request.args:\t", request.args, "\n")
     for i in request.args:
         print("arg:\t\t", i)
@@ -37,8 +37,14 @@ def login():
         web_user = db.get_webuser_with_email(email=email)
         if not err_list and web_user and hasher.verify(password, web_user.password_hash):
             login_user(web_user)
-            next_page = request.args.get("next", url_for("index"))
-            return redirect(next_page)
+            if web_user.user_type == 1:
+                pass
+                #Flask-admin'e yönlendirme
+            elif web_user.user_type == 2:
+                return redirect(url_for('workplace_page_bp.dashboard'))
+            else:
+                next_page = request.args.get("next", url_for("index"))
+                return redirect(next_page)
         else:
             err_list.append("Email or password not correct.")
 
@@ -74,3 +80,13 @@ def register():
     for err in err_list:
         flash(err, "danger")
     return render_template('register.html')
+
+@auth_page_bp.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
+@auth_page_bp.route('/profile')
+@login_required
+def profile():
+    return render_template('profile.html')

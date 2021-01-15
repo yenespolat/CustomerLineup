@@ -10,7 +10,7 @@ workplace_page_bp = Blueprint(
 
 @workplace_page_bp.route('/example')
 def example_api():
-    # # Example for http://127.0.0.1:5000/workplace/example?arg0=55&arg1=asd&arg1=qwe
+    # # Example for https://customer-lineup-gr31.herokuapp.com//workplace/example?arg0=55&arg1=asd&arg1=qwe
     print("request.args:\t", request.args, "\n")
     for i in request.args:
         print("arg:\t\t", i)
@@ -23,12 +23,12 @@ def example_api():
 
 @workplace_page_bp.route('/<int:wp_id>')
 def show_workplace(wp_id):
-    workplace = requests.get(f'http://127.0.0.1:5000/api/workplace/get_workplace?id={wp_id}').json()
+    workplace = requests.get(f'https://customer-lineup-gr31.herokuapp.com//api/workplace/get_workplace?id={wp_id}').json()
     total_score = 0
     for comment in workplace['comments']:
         total_score += comment['score']
         web_user_id = comment['web_user_ref']
-        web_user = requests.get(f'http://127.0.0.1:5000/api/auth/get_user?id={web_user_id}').json()
+        web_user = requests.get(f'https://customer-lineup-gr31.herokuapp.com//api/auth/get_user?id={web_user_id}').json()
         comment['web_user_ref'] = web_user['webuser']['name'] + ' ' + web_user['webuser']['surname']
     if total_score == 0:
         avg_score = 'No comments yet'
@@ -38,5 +38,9 @@ def show_workplace(wp_id):
 
 @workplace_page_bp.route('/workplaces')
 def all_wps():
-    wplaces = requests.get(f'http://127.0.0.1:5000/api/workplace/get_workplaces').json()
+    wplaces = requests.get(f'https://customer-lineup-gr31.herokuapp.com//api/workplace/get_workplaces').json()
     return render_template('workplaces.html', workplaces=wplaces['workplaces'])
+
+@workplace_page_bp.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')

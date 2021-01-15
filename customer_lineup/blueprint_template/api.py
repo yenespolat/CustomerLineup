@@ -5,7 +5,7 @@ blueprint_template_api_bp = Blueprint('blueprint_template_api_bp', __name__)
 
 @blueprint_template_api_bp.route('/example')
 def example_api():
-    # # Example for http://127.0.0.1:5000/api/blueprint_template/example?arg0=55&arg1=asd&arg1=qwe
+    # # Example for https://customer-lineup-gr31.herokuapp.com//api/blueprint_template/example?arg0=55&arg1=asd&arg1=qwe
     print("request.args:\t", request.args, "\n")
     for i in request.args:
         print("arg:\t\t", i)

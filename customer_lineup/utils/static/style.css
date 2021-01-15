@@ -27,13 +27,13 @@ body.index {
 
 #links {
     position: absolute;
+    text-align: end;
     right: 8%;
     top: 8%;
-    width: 27%;
+    width: 32%;
 }
 
 #nav {
-    background-color: brown;
 }
 
 #brand {
