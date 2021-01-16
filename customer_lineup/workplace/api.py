@@ -105,8 +105,13 @@ def get_city():
 
 @workplace_api_bp.route('/get_all_cities')
 def api_get_all_cities():
-    cities = db.get_all_cities()
-    return jsonify(result=True, cities=cities.to_dict())
+    cities_ref = db.get_all_cities()
+    cities = []
+    for c in cities_ref:
+        cities.append(c.to_dict())
+    if cities is None:
+        return jsonify(result=False, msg='No cities found!')
+    return jsonify(result=True, cities=cities)
 
 
 @workplace_api_bp.route('/get_district')

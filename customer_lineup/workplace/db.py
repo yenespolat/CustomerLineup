@@ -108,7 +108,7 @@ def get_city_with_id(city_id):
 
 @db_session
 def get_all_cities():
-    cities = City.get(lambda c: c.id > 0)
+    cities = City.select(lambda c: c.id > 0)
     return cities
 
 
