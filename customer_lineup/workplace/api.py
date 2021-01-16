@@ -103,6 +103,11 @@ def get_city():
 
     return jsonify(result=True, city_id=city.id, city_name=city.city)
 
+@workplace_api_bp.route('/get_all_cities')
+def api_get_all_cities():
+    cities = db.get_all_cities()
+    return jsonify(result=True, cities=cities.to_dict())
+
 
 @workplace_api_bp.route('/get_district')
 def get_district():

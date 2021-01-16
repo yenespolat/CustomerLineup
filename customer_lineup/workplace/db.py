@@ -106,6 +106,11 @@ def get_city_with_id(city_id):
     city = City.get(id=city_id)
     return city
 
+@db_session
+def get_all_cities():
+    cities = City.get(lambda c: c.id > 0)
+    return cities
+
 
 def get_workplaces(**kwargs):
     return Workplace.select(**kwargs)
