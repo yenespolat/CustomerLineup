@@ -87,6 +87,15 @@ def api_get_all_users():
 
     return jsonify(result=True, users=user_list)
 
+@auth_api_bp.route('edit_user')
+def api_edit_webuser():
+    args = request.args
+    if 'id' in args and 'user_type' in args:
+        id = request.get('id')
+        user_type = request.get('user_type')
+        webuser = db.get_webuser_with_id(id)
+    webuser.user_type = user_type
+    return jsonify(result=True, msg='User type changed.')
 
 @auth_api_bp.route('/assign_user_to_wp')
 def api_assign_user_to_wp():
