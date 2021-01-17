@@ -31,6 +31,8 @@ def application_token_required(func):
             return jsonify(result=False, msg="Application token is not send", token_error=1)
         elif not decode_token(application_token):
             return jsonify(result=False, msg="Application token is not valid", token_error=2)
+        elif decode_token(application_token).get("framework") != "flutter":
+            return jsonify(result=False, msg="Only access from the application is allowed.", token_error=6)
         return func(*args, **kwargs)
 
     return decorated_view

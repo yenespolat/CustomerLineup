@@ -11,12 +11,16 @@ from customer_lineup.utils.db_models import WebUser
 def create_web_user_token(web_user: WebUser):
     if not web_user.id:
         flush()
-
     data = {
         'web_user_id': web_user.id,
         'email_address': web_user.email_address,
         'created_time': datetime.now()
     }
+
+    return encode_token(data)
+
+
+def encode_token(data):
     return jwt.encode(
         data, current_app.secret_key, algorithm='HS256', json_encoder=current_app.json_encoder
     )
