@@ -36,7 +36,7 @@ def get_workplace():
 
     return jsonify(result=True, name=workplace.name, id=workplace.id, wptype=workplace.type, status=workplace.status,
                    city=city, district=district, managers=manager_list, latitude=latitude, longitude=longitude,
-                   comments=comment_list)
+                   comments=comment_list, workplace=workplace.custom_dict())
 
 
 @workplace_api_bp.route('/get_workplaces')

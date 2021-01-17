@@ -55,6 +55,16 @@ class Workplace(db.Entity):
         BANK = "Bank"
         MARKET = "Market"
 
+    @property
+    def waiting_person_count(self):
+        print(self.queue_elements_set.filter(lambda qe: qe.status == QueueElement.STATUS.IN_QUEUE))
+        return self.queue_elements_set.filter(lambda qe: qe.status == QueueElement.STATUS.IN_QUEUE).count()
+
+    @property
+    def estimated_waiting_time(self):
+        # TODO geçmiş kayıtlardan hesaplat
+        return self.waiting_person_count * 1.29
+
     def custom_dict(self):
         return {
             "id": self.id,
@@ -65,6 +75,8 @@ class Workplace(db.Entity):
             "status": self.status,
             "image_url": self.image_url,
             "address": self.address_ref.custom_dict(),
+            "waiting_person_count": self.waiting_person_count,
+            "estimated_waiting_time": int(self.estimated_waiting_time),
         }
 
 
@@ -103,17 +115,19 @@ class QueueElement(db.Entity):
     web_users_ref = Required(WebUser)  # DEĞİŞMELİ web_user_ref
     workplaces_ref = Required(Workplace)  ##DEĞİŞMELİ workplace_ref
     status = Required(int)
-    # 1: Sıra alındı
-    # 2: Sıradan çıkıldı
-    # 3: İş yerine girildi
     taking_time = Required(datetime, default=lambda: datetime.now())
     status_time = Required(datetime, default=lambda: datetime.now())
     type = Required(int)
-    waiting_person = Required(int)
     # 1: from application
     # 2: on workplace
+    waiting_person = Required(int)
     first_estimated_waiting_time = Optional(int)
     comment_ref = Optional('Comment')
+
+    class STATUS:
+        IN_QUEUE = 1
+        CANCELLED = 2
+        COMPLETED = 3
 
 
 class Comment(db.Entity):

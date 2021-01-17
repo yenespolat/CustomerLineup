@@ -4,7 +4,7 @@ from passlib.handlers.pbkdf2 import pbkdf2_sha256 as hasher
 import customer_lineup.auth.db as db
 import customer_lineup.workplace.db as wp_db
 from customer_lineup.auth.authorization import application_token_required, web_user_token_required
-from customer_lineup.auth.utils import create_web_user_token, decode_token
+from customer_lineup.auth.utils import create_web_user_token, encode_token
 
 auth_api_bp = Blueprint('auth_api_bp', __name__)
 
@@ -33,6 +33,12 @@ def get_web_user_token_api():
         return jsonify(result=False, msg='Email or password is incorrect.')
     token = create_web_user_token(web_user=web_user)
     return jsonify(result=True, msg='User added!', token=token, web_user=web_user.to_dict())
+
+
+# @auth_api_bp.route("/get_application_token", methods=["GET"])
+# def get_application_token_api():
+#     token = encode_token({"framework": "flutter"})
+#     return jsonify(result=True, token=token)
 
 
 @auth_api_bp.route('user_from_token')
@@ -87,6 +93,7 @@ def api_get_all_users():
 
     return jsonify(result=True, users=user_list)
 
+
 @auth_api_bp.route('edit_user')
 def api_edit_webuser():
     args = request.args
@@ -96,6 +103,7 @@ def api_edit_webuser():
         webuser = db.get_webuser_with_id(id)
     webuser.user_type = user_type
     return jsonify(result=True, msg='User type changed.')
+
 
 @auth_api_bp.route('/assign_user_to_wp')
 def api_assign_user_to_wp():
