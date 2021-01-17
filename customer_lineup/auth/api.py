@@ -47,6 +47,19 @@ def user_from_token_api():
     return jsonify(result=True, web_user=g.web_user.to_dict())
 
 
+@auth_api_bp.route("/update_web_user", methods=["POST"])
+@web_user_token_required
+def update_web_user_api():
+    form = request.form
+    new_values = {
+        "name": form.get("name", g.web_user.name),
+        "surname": form.get("surname", g.web_user.surname),
+        "phone_number": form.get("phone_number", g.web_user.phone_number),
+    }
+    g.web_user.set(**new_values)
+    return jsonify(result=True, msg='Web user is updated', errors=[])
+
+
 @auth_api_bp.route('/add_user')
 def api_add_webuser():
     args = request.args
