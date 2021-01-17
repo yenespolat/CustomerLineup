@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block title %} Admin Page {% endblock %}
+{% block content %}
+
+
+
+<div style="margin-left: 15%; margin-top: 10%">
+    <h1 style="font-family: 'Raleway', sans-serif;">Add New WorkPlace</h1>
+</div>
+<div>
+</div>
+<div class="col-auto" style="margin-top: 2%; margin-left: 15%; margin-right: 15%; font-family: 'Raleway', sans-serif;">
+	<form class="form-signin" action="/admin/add_workplacepage" METHOD="POST">
+		<input type="text" class="form-control" placeholder="City" name="city" value="{{ city }}"required>
+		<input type="text" class="form-control" placeholder="Districts" name="district" value="{{ district }}"required>
+	    <input type="text" class="form-control" placeholder="Name" name="name" value="{{ name }}"required>
+	    <input type="text" class="form-control" placeholder="Type" name="type" value="{{ type }}"required>
+	    <input type="text" class="form-control" placeholder="Status" name="status" value="{{ status }}"required>
+	    <input type="submit" value="Add WorkPlace" class="btn btn-secondary">
+    </form>
+</div>
+
+{% endblock %}
+

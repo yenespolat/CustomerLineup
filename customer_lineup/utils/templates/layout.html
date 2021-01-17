@@ -32,6 +32,11 @@
                 <a class="navlink" href="/auth/logout">
                     <p>LOGOUT</p>
                 </a>
+                {% if current_user.user_type == 1 %}
+                <a class="navlink" href="/admin/adminpage">
+                    <p>ADMIN PANEL</p>
+                </a>
+                {% endif %}
                 {% endif %}
             </span>
         </nav>

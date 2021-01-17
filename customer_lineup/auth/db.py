@@ -30,6 +30,13 @@ def get_all_users():
 
 
 @db_session
+def edit_webuser_with_id(id, user_type):
+    webuser = WebUser.get(id=id)
+    webuser.user_type = user_type
+    return webuser
+
+
+@db_session
 def asign_user_to_workplace(user_ref, wplace_ref):
     user_ref.managed_workplace_ref = wplace_ref
     return

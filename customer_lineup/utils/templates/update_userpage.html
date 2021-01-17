@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block title %} Admin Page {% endblock %}
+{% block content %}
+
+
+
+<div style="margin-left: 15%; margin-top: 10%">
+    <h1 style="font-family: 'Raleway', sans-serif;">Update User</h1>
+</div>
+<div>
+</div>
+<div class="col-auto" style="margin-top: 2%; margin-left: 15%; margin-right: 15%; font-family: 'Raleway', sans-serif;">
+	<form class="form-signin" action="" METHOD="POST">
+		<select name="user_type" class="form-control" required>
+			<option class="dropdown-item" value="">Select a user tpye</option>
+			<option class="dropdown-item" value='1'>Type 1 - Admin </option>
+			<option class="dropdown-item" value='2'>Type 2 - Workplace Manager</option>
+			<option class="dropdown-item" value='3'>Type 3 - Normal User</option>
+			<input type="submit" value="Update User" class="btn btn-secondary">
+		</select>
+    </form>
+</div>
+
+{% endblock %}
+

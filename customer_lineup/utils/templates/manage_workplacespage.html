@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% block title %} Workplaces {% endblock %}
+{% block content %}
+
+<div style="margin-left: 15%; margin-top: 10%">
+    <h1 style="font-family: 'Raleway', sans-serif;">Workplaces</h1>
+    <h1 style="font-family: 'Raleway', sans-serif;"><a href="/admin/add_workplacepage" style="color: black;">Add New WorkPlace</a></h1>
+</div>
+<div
+    style="background-color: #f1f2f3; margin-left: 55%; margin-right: 15%; margin-top: 1%; border: #F8F9FA; border-radius: 20px; height: 30px;">
+    <div style="text-align: center; padding-top: 5px;">
+        <p style="font-family: 'Raleway', sans-serif; margin-right: 30%; display: inline;"> <img
+                src="../static/Sort.png" style="width: auto; height: 13px;"> Sort </p>
+        <p style="font-family: 'Raleway', sans-serif; display: inline;"> <img src="../static/filter.png"
+                style="width: auto; height: 13px;"> Filter </p>
+    </div>
+</div>
+<div style="margin-top: 2%; margin-left: 15%; margin-right: 15%; font-family: 'Raleway', sans-serif;">
+    <table class="table table-borderless" style="text-align: center; background-color: #F8F9FA; border-radius: 20px; width: 100%; font-size: 20px;">
+        <thead>
+            <tr>
+                <th scope="col" style="width: 40%; text-align: left; padding-left: 10%;">Name</th>
+                <th scope="col" style="width: 20%;">City</th>
+                <th scope="col" style="width: 15%;">District</th>
+                <th scope="col" style="width: 15%;">View</th>
+                <th scope="col" style="width: 15%;">Assign Manager</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<div style="margin-left: 15%; margin-right: 15%; font-family: 'Raleway', sans-serif;">
+    <table style="width: 100%; text-align: center;">
+        <tbody>
+            {% for wp in workplaces %}
+                <tr style="line-height: 80px;">
+                    <td style="width: 40%; text-align: left; padding-left: 10%;">{{ wp.name }}</td>
+                    <td style="width: 20%;">{{ wp.address_ref.district_ref.city_ref.city }}</td>
+                    <td style="width: 15%;">{{ wp.address_ref.district_ref.district }}</td>
+                    <td style="width: 15%;"><a href="/workplace/{{ wp.id }}" style="color: black;">view</a></td>
+                    <td style="width: 15%;"><a href="/admin/assign_manager_to_wp/{{ wp.id }}" style="color: black;">Assign Manager</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+
+{% endblock %}

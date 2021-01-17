@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block title %} Admin Page {% endblock %}
+{% block content %}
+
+
+
+<div style="margin-left: 15%; margin-top: 10%">
+    <h1 style="font-family: 'Raleway', sans-serif;">Assign Manager</h1>
+</div>
+<div>
+</div>
+<div class="col-auto" style="margin-top: 2%; margin-left: 15%; margin-right: 15%; font-family: 'Raleway', sans-serif;">
+	<form class="form-signin" action="" METHOD="POST">
+		<select name="user_id_to_assign" class="form-control" required>
+			<option class="dropdown-item" value="">Select a user to assign</option>
+			{% for user in users %}
+			{% if user.user_type == 2 %}
+			<option class="dropdown-item" value='{{ user.id }}'> {{ user.name }} {{ user.surname }} </option>
+			{% endif %}
+			{% endfor %}
+			<input type="submit" value="Assign User" class="btn btn-secondary">
+		</select>
+    </form>
+</div>
+
+{% endblock %}
+

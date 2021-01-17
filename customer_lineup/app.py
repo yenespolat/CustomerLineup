@@ -17,6 +17,8 @@ from customer_lineup.utils import CustomJSONEncoder
 from customer_lineup.workplace.api import workplace_api_bp
 from customer_lineup.workplace.page import workplace_page_bp
 
+from customer_lineup.admin.admin import admin_page_bp
+
 app = Flask(
     __name__, instance_relative_config=True,
     template_folder='utils/templates', static_folder='utils/static', static_url_path='/assets'
@@ -37,6 +39,8 @@ app.register_blueprint(queue_api_bp, url_prefix="/api/queue")
 app.register_blueprint(queue_page_bp, url_prefix="/queue")
 app.register_blueprint(workplace_api_bp, url_prefix="/api/workplace")
 app.register_blueprint(workplace_page_bp, url_prefix="/workplace")
+
+app.register_blueprint(admin_page_bp, url_prefix="/admin")
 
 lm = LoginManager()
 

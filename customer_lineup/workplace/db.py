@@ -18,6 +18,16 @@ def get_workplace_with_id(id):
 
 
 @db_session
+def get_all_workplaces():
+    return Workplace.select(lambda a: a.id > 0)
+
+    
+@db_session
+def get_workplaces(**kwargs):
+    return Workplace.select(**kwargs)
+
+
+@db_session
 def add_address(district_ref, latitude, longitude):
     address = Address(district_ref=district_ref, latitude=latitude, longitude=longitude)
     return address
@@ -111,6 +121,3 @@ def get_all_cities():
     cities = City.select(lambda c: c.id > 0)
     return cities
 
-
-def get_workplaces(**kwargs):
-    return Workplace.select(**kwargs)
