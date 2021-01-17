@@ -15,7 +15,7 @@
         <nav id="nav">
             <a href="/"><p id="brand">CLINEUP</p></a>
             <span id="links">
-                <a class="navlink" href="/">
+                <a class="nav-link-cl" href="/">
                     <p>HOME</p>
                 </a>
                 {% if not current_user.is_authenticated %}
@@ -26,17 +26,9 @@
                     <p>LOGIN</p>
                 </a>
                 {% else %}
-                <a class="navlink" href="/auth/profile">
-                    <p>PROFILE</p>
-                </a>
                 <a class="navlink" href="/auth/logout">
                     <p>LOGOUT</p>
-                </a>
-                {% if current_user.user_type == 1 %}
-                <a class="navlink" href="/admin/adminpage">
-                    <p>ADMIN PANEL</p>
-                </a>
-                {% endif %}
+                </a>                
                 {% endif %}
             </span>
         </nav>

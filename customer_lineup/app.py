@@ -44,7 +44,6 @@ app.register_blueprint(admin_page_bp, url_prefix="/admin")
 
 lm = LoginManager()
 
-
 @lm.user_loader
 def load_user(wu_id):
     return get_webuser_with_id(id=wu_id)
@@ -58,8 +57,6 @@ lm.login_view = "auth_page_bp.login"
 
 @app.route('/')
 def index():
-    if current_user.is_authenticated:
-        print('Giriş Yapıldı ->', current_user.name)
     return render_template('index.html')
 
 

@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request
+from customer_lineup.utils.global_vars import global_url_prefix
 import customer_lineup.comment.db as db
 import customer_lineup.workplace.db as wp_db
 import customer_lineup.auth.db as auth_db
@@ -20,7 +21,7 @@ def api_add_comment():
         added_comment = db.add_comment_wo_qelement(user, workplace, score, 'No comment')
     elif 'queue_id' in args and 'score' in args:
         q_id = args.get('queue_id')
-        q_elm = requests.get(f'https://customer-lineup-gr31.herokuapp.com//api/queue/get_q?id={q_id}').json()['queue_element']
+        q_elm = requests.get(f'{global_url_prefix}/api/queue/get_q?id={q_id}').json()['queue_element']
         wp_id = q_elm['workplaces_ref']
         user_id = q_elm['web_users_ref']
         score = args.get('score')
