@@ -82,6 +82,7 @@ def register():
     return render_template('register.html')
 
 @auth_page_bp.route('/logout')
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
@@ -90,3 +91,8 @@ def logout():
 @login_required
 def profile():
     return render_template('profile.html')
+
+@auth_page_bp.route('/profile/edit')
+@login_required
+def edit_profile():
+    return render_template('edit-profile.html')

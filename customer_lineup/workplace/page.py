@@ -1,5 +1,8 @@
-from flask import Blueprint, request, render_template, g
+from flask import Blueprint, request, render_template, g, redirect, url_for, abort
+from flask_login import login_required, current_user
 from customer_lineup.utils import LayoutPI
+import customer_lineup.workplace.db as wp_db
+import customer_lineup.queue_.db as q_db
 import requests
 
 workplace_page_bp = Blueprint(
@@ -42,5 +45,20 @@ def all_wps():
     return render_template('workplaces.html', workplaces=wplaces['workplaces'])
 
 @workplace_page_bp.route('/dashboard')
+@login_required
 def dashboard():
-    return render_template('dashboard.html')
+    if current_user.user_type != 2:
+        return redirect(abort(401))
+    workplace = wp_db.get_workplace_with_id(current_user.managed_workplace_ref.id)
+    queue = q_db.get_users_on_queue_with_workplace(workplace)
+    q_today = q_db.get_all_q_today(workplace.id)
+    q_alltime = q_db.get_all_q(workplace.id)
+    comments = workplace.comments_set
+    return render_template('dashboard.html', workplace=workplace, queue=len(queue), q_today=len(q_today), q_alltime=len(q_alltime), comments=len(comments))
+
+@workplace_page_bp.route('/dashboard/edit/<int:wp_id>')
+@login_required
+def edit_workplace(wp_id):
+    workplace = wp_db.get_workplace_with_id(wp_id)
+    print(workplace)
+    return render_template('edit-workplace.html', workplace=workplace)
