@@ -113,6 +113,8 @@ def add_workplacepage():
 					district_city = db_wp.add_city(wp_city)
 				if not temp_district:
 					address_district = db_wp.add_district(wp_district, district_city)
+				else:
+					address_district = db_wp.get_district_with_name(wp_district)
 
 				wp_address_id = db_wp.add_address(address_district, '999', '999')
 				db_wp.add_workplace(wp_name, wp_type, wp_address_id, wp_status)
