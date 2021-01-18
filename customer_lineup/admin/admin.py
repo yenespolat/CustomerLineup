@@ -96,6 +96,8 @@ def add_workplacepage():
 				wp_status = request.form['status']
 				wp_city = request.form['city']
 				wp_district = request.form['district']
+				wp_long = request.form['long']
+				wp_lat = request.form['lat']
 
 				cities = db_wp.get_all_cities()
 				
@@ -118,7 +120,7 @@ def add_workplacepage():
 				else:
 					address_district = db_wp.get_district_with_name(wp_district)
 
-				wp_address_id = db_wp.add_address(address_district, '999', '999')
+				wp_address_id = db_wp.add_address(address_district, wp_lat, wp_long)
 				db_wp.add_workplace(wp_name, wp_type, wp_address_id, wp_status)
 				return redirect(url_for('admin_page_bp.manage_workplacespage'))
 			else:

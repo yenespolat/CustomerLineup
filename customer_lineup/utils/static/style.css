@@ -309,9 +309,6 @@ td {
 }
 
 #myInput {
-    background-image: url("searchicon.png");
-    background-position: 10px 10px;
-    background-repeat: no-repeat;
     width: 20%;
     float: right;
     font-size: 16px;
@@ -322,4 +319,46 @@ td {
 
 ::placeholder {
     font-family: 'Raleway', sans-serif;
+}
+
+#filter-e-n {
+    display: inline; 
+    float: right; 
+    margin-right: 17.7%; 
+    font-size: 16px; 
+    padding: 12px 20px 12px 20px; 
+    border: 1px solid #ddd;
+    font-family: 'Raleway', sans-serif;
+}
+
+.input-wp {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px 12px 20px;
+    border: 1px solid #ddd;
+    margin: 0 1% 3% 0;
+}
+
+.btn-wp {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px 12px 20px;
+    border: 1px solid #ddd;
+    margin: 0 1% 1% 5%;
+}
+
+.input-mn {
+    width: 40%;
+    font-size: 16px;
+    padding: 12px 20px 12px 20px;
+    border: 1px solid #ddd;
+    margin: 0 1% 3% 0;
+}
+
+.btn-mn {
+    width: 40%;
+    font-size: 16px;
+    padding: 12px 20px 12px 20px;
+    border: 1px solid #ddd;
+    margin: 0 1% 1% 0;
 }

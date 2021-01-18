@@ -2,13 +2,21 @@
 {% block title %} Admin Page {% endblock %}
 {% block content %}
 
-        <div style="margin-top: 12%; margin-left: 12%;">
-        <a href="/admin/manage_userspage">
-            <p>MANAGE USERS</p>
-        </a>
-        <a href="/admin/manage_workplacespage">
-            <p>MANAGE WORKPLACES</p>
-        </a>
-        </div>
+<div class="container">
+    <div style="margin-top: 12%; display: flex; justify-content: center;">
+        <span class="fade" style="margin: 50px;">
+            <a class="link-1" href="/admin/manage_userspage">
+                <img src="{{ url_for('static', filename='fa-icons/manage-users.svg') }}" style="width: 200px; height: 200px;">
+                <p style="width: 200px; text-align: center; font-size: 30px; color: black;">Users</p>
+            </a>
+        </span>
 
+        <span class="fade" style="margin: 50px;">
+            <a class="link-1" href="/admin/manage_workplacespage">
+                <img src="{{ url_for('static', filename='fa-icons/workplace.svg') }}" style="width: 200px; height: 200px;">
+                <p style="width: 200px; text-align: center; font-size: 30px; color: black;">Workplaces</p>
+            </a>
+        </span>
+    </div>
+</div>
 {% endblock %}
