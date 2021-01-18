@@ -1,5 +1,6 @@
 from customer_lineup.utils.db_models import *
 from datetime import datetime
+from pony.orm import desc
 
 
 @db_session
@@ -17,7 +18,7 @@ def get_queue_with_id(id):
 
 @db_session
 def get_all_user_queues(user_ref):
-    queues = QueueElement.select(lambda q: q.web_users_ref.email_address == user_ref.email_address)
+    queues = QueueElement.select(lambda q: q.web_users_ref.email_address == user_ref.email_address).order_by(lambda qe: desc(qe.taking_time))
     return queues
 
 
@@ -38,14 +39,15 @@ def change_queue_status(queue_id, status):
 @db_session
 def get_users_on_queue_with_workplace(workplace_ref):
     queues = QueueElement.select(lambda q: q.workplaces_ref == workplace_ref and q.status == 1)
-    print(queues)
     return queues
+
 
 @db_session
 def get_all_q_today(wp_id):
     queues = QueueElement.select(lambda q: q.workplaces_ref.id == wp_id and q.status_time.day == datetime.now().day and
                                  q.status_time.month == datetime.now().month and q.status_time.year == datetime.now().year)
     return queues
+
 
 @db_session
 def get_all_q(wp_id):

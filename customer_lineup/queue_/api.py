@@ -63,7 +63,7 @@ def api_user_history():
     queues = db.get_all_user_queues(user)
     queue_list = []
     for queue in queues:
-        queue_list.append(queue.to_dict())
+        queue_list.append(queue.custom_dict())
 
     return jsonify(result=True, queue_list=queue_list, user=user.to_dict())
 
