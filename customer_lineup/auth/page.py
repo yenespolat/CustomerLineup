@@ -1,5 +1,5 @@
 from flask import Blueprint, request, render_template, g, flash, redirect, url_for
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 from passlib.hash import pbkdf2_sha256 as hasher
 
 from customer_lineup.auth import db
@@ -76,7 +76,16 @@ def logout():
 def profile():
     return render_template('profile.html')
 
-@auth_page_bp.route('/profile/edit')
+@auth_page_bp.route('/profile/edit', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
+    if request.method == 'POST':
+        name = request.form['name']
+        surname = request.form['surname']
+        email = request.form['email_address']
+        phone = request.form['phone_number']
+        print(name, surname, email, phone)
+        user = db.get_webuser_with_id(current_user.id)
+        user.set(name=name, surname=surname, email_address=email, phone_number=phone)
+        return redirect(url_for('auth_page_bp.profile'))
     return render_template('edit-profile.html')

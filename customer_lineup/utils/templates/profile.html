@@ -1,7 +1,57 @@
 {% extends "layout.html" %}
 {% block title %} Profile {% endblock %}
 {% block content %}
-<div class="box-profile">
+<div style="margin-top: 12%;">
+    <div class="fade" class="container">
+        <div style="display: flex; justify-content: center;">
+            <div
+                style="width: 30%; background-color: #c9c9c9; height: 400px; display: flex; justify-content: center;">
+                <table id="profile-table" style="width: 80%; text-align: center; height: 70%; margin-top: 10%;">
+                    <tbody>
+                        <tr style="line-height: 50px;">
+                            <td
+                                style="width: 23%; text-align: left; color: rgb(54, 116, 179); font-weight: bolder; padding-left: 6%;">
+                                Name</td>
+                            <td style="width: 80%; text-align: right; padding-right: 6%;">{{ current_user.name + ' ' +
+                                current_user.surname }}</td>
+                        </tr>
+                        <tr style="line-height: 50px;">
+                            <td
+                                style="width: 23%; text-align: left; color: rgb(54, 116, 179); font-weight: bolder; padding-left: 6%;">
+                                Email</td>
+                            <td style="width: 80%; text-align: right; padding-right: 6%;">{{ current_user.email_address
+                                }}
+                            </td>
+                        </tr>
+                        <tr style="line-height: 50px;">
+                            <td
+                                style="width: 23%; text-align: left; color: rgb(54, 116, 179); font-weight: bolder; border-bottom: none; padding-left: 6%;">
+                                Phone</td>
+                            <td style="width: 80%; text-align: right; border-bottom: none; padding-right: 6%;">
+                                {% if current_user.phone_number %}
+                                {{ current_user.phone_number }}
+                                {% else %}
+                                <a href="/auth/profile/edit"><img
+                                        src="{{ url_for('static', filename='fa-icons/add.svg') }}"
+                                        style="width: 30px; height: 30px; vertical-align: middle;"></a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div style="display: flex; justify-content: center;">
+            <div style="width: 30%; margin-top: 0.2%; height: 60px;">
+                <a href="/auth/profile/edit"><button class="btn-profile" style="float: right;">Edit Profile</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--<div class="box-profile">
     <div class="box-profile-in">
         <span>
             <img src="{{ url_for('static', filename='name.png') }}" style="margin-top: 6%;"> <br>
@@ -29,5 +79,5 @@
         <a href="/queue/queue-history"><button class="profile-btn"><img src="{{ url_for('static', filename='queuehistory.png') }}"
                 style="width: 40px; filter:invert(100%) sepia(100%) saturate(0%) hue-rotate(261deg) brightness(101%) contrast(102%);"></button></a>
     </div>
-</div>
+</div>-->
 {% endblock %}
