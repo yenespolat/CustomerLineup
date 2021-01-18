@@ -362,3 +362,16 @@ td {
     border: 1px solid #ddd;
     margin: 0 1% 1% 0;
 }
+
+#profile-table td {
+    background-color: rgba(255, 255, 255, 0.29);
+}
+
+.btn-profile {
+    width: 30%;
+    font-size: 16px;
+    padding: 6px 12px 6px 6px;
+    border: 1px solid #ddd;
+    margin: 0 0 1% 0;
+    font-family: 'Raleway', sans-serif;
+}

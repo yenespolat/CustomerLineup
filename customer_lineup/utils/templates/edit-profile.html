@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Edit Workplace</title>
+	<title>Edit Profile</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -34,18 +34,23 @@
 			<div class="wrap-login100">
 				<form class="login100-form validate-form" method="POST">
 					<div class="wrap-input100 validate-input">
-						<span>Workplace Name</span>
-						<input class="input100" type="text" name="name" value="{{ workplace.name }}">
+						<span>Name</span>
+						<input class="input100" type="text" name="name" value="{{ current_user.name }}">
 					</div>
 
 					<div class="wrap-input100 validate-input">
-						<span>Workplace Type</span>
-						<input class="input100" type="text" name="type" value="{{ workplace.type }}">
+						<span>Surname</span>
+						<input class="input100" type="text" name="surname" value="{{ current_user.surname }}">
 					</div>
 
 					<div class="wrap-input100">
-						<span>Workplace Staff Warning Limit</span>
-						<input class="input100" type="number" name="warnlimit" value="{{ workplace.staff_warning_limit }}">
+						<span>Email</span>
+						<input class="input100" type="email" name="email_address" value="{{ current_user.email_address }}">
+					</div>
+
+					<div class="wrap-input100">
+						<span>Phone</span>
+						<input class="input100" type="number" min="5000000000" max="5999999999" name="phone_number" value="{{ current_user.phone_number }}">
 					</div>
 
 					<div class="container-login100-form-btn">
@@ -59,7 +64,7 @@
 
 					<div class="text-center p-t-30">
 
-						<a class="txt2" href="/workplace/dashboard">
+						<a class="txt2" href="/auth/profile">
 							Back
 						</a>
 						
