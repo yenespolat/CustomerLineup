@@ -60,45 +60,52 @@
 
     </div>
     {% else %}
-    <div style="margin-top: 12%; margin-left: 12%; display: inline-flex;">
-        {% if current_user.user_type == 2 %}
-        <span style="margin: 30px;">
-            <a href="/workplace/dashboard">
-                <img src="{{ url_for('static', filename='fa-icons/dboard.svg') }}" style="width: 100px; height: 100px;">
-                <p style="width: 100px; text-align: center;">Dashboard</p>
-            </a>
-        </span>
-        {% endif %}
-        {% if current_user.user_type == 3 %}
-        <span style="margin: 30px;">
-            <a href="/workplace/workplaces">
-                <img src="{{ url_for('static', filename='fa-icons/list.svg') }}" style="width: 100px; height: 100px;">
-                <p style="width: 100px; text-align: center;">Workplaces</p>
-            </a>
-        </span>
-        <span style="margin: 30px;">
-            <a href="/queue/queue-history">
-                <img src="{{ url_for('static', filename='queuehistory.png') }}" style="width: 100px; height: 100px;">
-                <p style="width: 100px; text-align: center;">Queue History</p>
-            </a>
-        </span>
-        {% endif %}
-        {% if current_user.user_type == 1 %}
-        <span style="margin: 30px;">
-            <a href="/admin/adminpage">
-                <img src="{{ url_for('static', filename='fa-icons/admin.svg') }}" style="width: 100px; height: 100px;">
-                <p style="width: 100px; text-align: center;">Admin Panel</p>
-            </a>
-        </span>
-        {% endif %}
-        {% if current_user.is_authenticated %}
-        <span style="margin: 30px;">
-            <a href="/auth/profile">
-                <img src="{{ url_for('static', filename='fa-icons/profile.svg') }}" style="width: 100px; height: 100px;">
-                <p style="width: 100px; text-align: center;">Profile</p>
-            </a>
-        </span>
-        {% endif %}
+    <div class="container">
+        <div style="margin-top: 12%; display: flex; justify-content: center;">
+            {% if current_user.user_type == 2 %}
+            <span class="fade" style="margin: 50px;">
+                <a class="link-1" href="/workplace/dashboard">
+                    <img src="{{ url_for('static', filename='fa-icons/dboard.svg') }}"
+                        style="width: 200px; height: 200px;">
+                    <p style="width: 200px; text-align: center; font-size: 30px; color: black;">Dashboard</p>
+                </a>
+            </span>
+            {% endif %}
+            {% if current_user.user_type == 3 %}
+            <span class="fade" style="margin: 50px;">
+                <a href="/workplace/workplaces">
+                    <img src="{{ url_for('static', filename='fa-icons/list.svg') }}"
+                        style="width: 200px; height: 200px;">
+                    <p style="width: 200px; text-align: center; font-size: 30px; color: black;">Workplaces</p>
+                </a>
+            </span>
+            <span class="fade" style="margin: 50px;">
+                <a href="/queue/queue-history">
+                    <img src="{{ url_for('static', filename='queuehistory.png') }}"
+                        style="width: 200px; height: 200px;">
+                    <p style="width: 200px; text-align: center; font-size: 30px; color: black;">Queue History</p>
+                </a>
+            </span>
+            {% endif %}
+            {% if current_user.user_type == 1 %}
+            <span class="fade" style="margin: 50px;">
+                <a href="/admin/adminpage">
+                    <img src="{{ url_for('static', filename='fa-icons/admin.svg') }}"
+                        style="width: 200px; height: 200px;">
+                    <p style="width: 200px; text-align: center; font-size: 30px; color: black;">Admin Panel</p>
+                </a>
+            </span>
+            {% endif %}
+            {% if current_user.is_authenticated %}
+            <span class="fade" style="margin: 50px;">
+                <a href="/auth/profile">
+                    <img src="{{ url_for('static', filename='fa-icons/profile.svg') }}"
+                        style="width: 200px; height: 200px;">
+                    <p style="width: 200px; text-align: center; font-size: 30px; color: black;">Profile</p>
+                </a>
+            </span>
+            {% endif %}
+        </div>
     </div>
     {% endif %}
 </body>

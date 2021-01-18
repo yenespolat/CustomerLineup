@@ -1,30 +1,40 @@
 {% extends "layout.html" %}
 {% block title %} Queue History {% endblock %}
 {% block content %}
-<div class="box-table-head">
-    <table style="width: 100%;">
-        <tr>
-            <th style="width: 50%; text-align: left; padding-left: 8%;">WORKPLACE</th>
-            <th style="width: 25%;">TIME</th>
-            <th style="width: 25%;">SCORE</th>
-        </tr>
-    </table>
-</div>
-<div class="box-table-rows">
-    <table style="width: 100%;">
-        {% for queue in queues %}
-        <tr class="table-row">
-            <td style="width: 50%; text-align: left; padding-left: 8%;">{{ queue['workplaces_ref'] }}</td>
-            <td style="width: 25%; text-align: center;">{{ queue['status_time'] }}</td>
-            <td style="width: 25%; text-align: center;">
-            {% if queue['comment_ref'] != None %}
-            {{ queue['comment_ref']['comment']['score'] }}/10
-            {% else %}
-            <a href="/comment/comment/{{queue['id']}}">vote</a>
-            {% endif %}
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
+<div class="fade2">
+    <div style="margin-left: 15%; margin-top: 10%">
+        <h1 style="font-family: 'Raleway', sans-serif;">Queue History</h1>
+    </div>
+    <div style="margin-top: 2%; margin-left: 15%; margin-right: 15%; font-family: 'Raleway', sans-serif;">
+        <div class="abox-table-head"
+            style="text-align: center; background-color: #c9c9c9; width: 100%; font-size: 20px;">
+            <table style="width: 100%;">
+                <tr>
+                    <th style="width: 50%; text-align: left; padding-left: 8%;">WORKPLACE</th>
+                    <th style="width: 25%;">TIME</th>
+                    <th style="width: 25%;">SCORE</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div style="margin-left: 15%; margin-right: 15%; font-family: 'Raleway', sans-serif;">
+        <table style="width: 100%; text-align: center;">
+            <tbody>
+                {% for queue in queues %}
+                <!-- Butonla dene! -->
+                <tr class="table-hover" style="line-height: 50px;">
+                    <td style="width: 50%; text-align: left; padding-left: 8%;">{{ queue['workplaces_ref'] }}</td>
+                    <td style="width: 25%;">{{ queue['status_time'] }}</td>
+                    <td style="width: 25%;">{% if queue['comment_ref'] != None %}
+                        {{ queue['comment_ref']['comment']['score'] }}/10
+                        {% else %}
+                        <a href="/comment/comment/{{queue['id']}}">vote</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 {% endblock %}

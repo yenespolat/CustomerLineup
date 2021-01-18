@@ -14,6 +14,7 @@ queue_page_bp = Blueprint(
 def queue_hist():
     if current_user.is_authenticated: #if current_user
         userid = current_user.id
+        print(userid)
         queues = requests.get(f'{global_url_prefix}/api/queue/user_history?id={userid}').json()['queue_list']
         for queue in queues:
             wp_id = queue['workplaces_ref']

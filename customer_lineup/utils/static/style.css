@@ -211,41 +211,6 @@ body.index {
     margin-top: 0;
 }
 
-.input-login {
-    background-color:rgba(255, 255, 255, 0.6);
-    border: none;
-    border-radius: 20px;
-    width: 280px;
-    height: 40px;
-    margin-top: 5%;
-    margin-left: 5%;
-    padding-top: 8px;
-    text-indent: 18px;
-    color: #67afff;
-    font-size: 25px;
-}
-
-.input-register {
-    background-color:rgba(255, 255, 255, 0.6);
-    border: none;
-    border-radius: 20px;
-    width: 280px;
-    height: 40px;
-    margin-top: 2.4%;
-    margin-left: 2%;
-    padding-top: 8px;
-    text-indent: 18px;
-    color: #67afff;
-    font-size: 25px;
-}
-
-::placeholder {
-    color: #67afff;
-    font-size: 25px;
-    text-indent: 18px;
-    font-family: 'Raleway', sans-serif;
-}
-
 #login-btn {
     text-indent: 0;
     height: 48px;
@@ -294,3 +259,67 @@ input::-webkit-inner-spin-button {
 }
 
 input:focus, button:focus {outline: 0;}
+
+.fade {
+    animation: fadein 0.5s ease forwards;
+}
+
+.fade2 {
+    animation: fadein2 1s ease forwards;
+}
+
+span.fade:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+@keyframes fadein {
+    from {
+        margin-top: 10%;
+        opacity: 0;
+    }
+
+    to {
+        margin-top: 0%;
+        opacity: 1;
+    }
+}
+@keyframes fadein2 {
+    from {
+        margin-top: 30%;
+        opacity: 0;
+    }
+
+    to {
+        margin-top: 0%;
+        opacity: 1;
+    }
+}
+
+.table-hover:hover {
+    transform: scale(1.01);
+    background-color:#f5f5f5;
+    color: #ff8983;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+td {
+    border-bottom: 1px solid #ddd;
+}
+
+#myInput {
+    background-image: url("searchicon.png");
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    width: 20%;
+    float: right;
+    font-size: 16px;
+    padding: 12px 20px 12px 20px;
+    border: 1px solid #ddd;
+    margin: 0 15% 1% 0;
+}
+
+::placeholder {
+    font-family: 'Raleway', sans-serif;
+}
