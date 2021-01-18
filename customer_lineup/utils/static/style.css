@@ -19,6 +19,14 @@ body.index {
     color: black;
 }
 
+.nav-link-cl {
+    text-decoration: none;
+    display: inline-flex;
+    margin-left: 8%;
+    font-size: 25px;
+    color: black;
+}
+
 #navlink:hover {
     background: -webkit-linear-gradient(right,#6c7aff, #fa7165);
     -webkit-background-clip: text;
@@ -27,10 +35,11 @@ body.index {
 
 #links {
     position: absolute;
-    text-align: end;
+    float: right;
     right: 8%;
     top: 8%;
-    width: 32%;
+    width: 50%;
+    text-align: right;
 }
 
 #nav {

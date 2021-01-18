@@ -11,21 +11,6 @@ auth_page_bp = Blueprint(
     template_folder='templates', static_folder='static', static_url_path='assets'
 )
 
-
-@auth_page_bp.route('/example')
-def example_api():
-    # # Example for https://customer-lineup-gr31.herokuapp.com//auth/example?arg0=55&arg1=asd&arg1=qwe
-    print("request.args:\t", request.args, "\n")
-    for i in request.args:
-        print("arg:\t\t", i)
-        print("get:\t\t", request.args.get(i))
-        print("getlist:\t", request.args.getlist(i))
-        print()
-    g.arg0 = request.args.get('arg0')
-    g.args = request.args
-    return render_template("auth/example_page.html", page_info=LayoutPI(title="Page title"))
-
-
 @auth_page_bp.route('/login', methods=['GET', 'POST'])
 def login():
     err_list = []
@@ -38,8 +23,7 @@ def login():
         if not err_list and web_user and hasher.verify(password, web_user.password_hash):
             login_user(web_user)
             if web_user.user_type == 1:
-                pass
-                #Flask-admin'e yönlendirme
+                return redirect(url_for('index'))
             elif web_user.user_type == 2:
                 return redirect(url_for('workplace_page_bp.dashboard'))
             else:

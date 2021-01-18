@@ -3,6 +3,7 @@ import customer_lineup.comment.db as db
 import customer_lineup.workplace.db as wp_db
 import customer_lineup.auth.db as auth_db
 import customer_lineup.queue_.db as q_db
+import requests
 
 comment_api_bp = Blueprint('comment_api_bp', __name__)
 

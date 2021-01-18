@@ -9,7 +9,6 @@ queue_api_bp = Blueprint('queue_api_bp', __name__)
 
 
 @queue_api_bp.route('/enqueue')
-@web_user_token_required
 def api_enqueue():  # status'a gerek yok, çünkü direk 1 olarak ekleniyor
     args = request.args
     if 'user_id' in args and 'workplace_id' in args and 'type' in args:
