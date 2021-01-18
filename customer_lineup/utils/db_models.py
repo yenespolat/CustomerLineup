@@ -54,6 +54,7 @@ class Workplace(db.Entity):
     class TYPE:
         BANK = "Bank"
         MARKET = "Market"
+        OTHER = "Other"
 
     @property
     def waiting_person_count(self):
@@ -129,6 +130,14 @@ class QueueElement(db.Entity):
         CANCELLED = 2
         COMPLETED = 3
 
+    def custom_dict(self):
+        ret = self.to_dict()
+        ret["workplace"] = self.workplaces_ref.custom_dict()
+        if self.comment_ref:
+            ret["comment"] = self.comment_ref.to_dict()
+
+        return ret
+
 
 class Comment(db.Entity):
     id = PrimaryKey(int, auto=True)
@@ -182,5 +191,5 @@ if __name__ == '__main__':
             Workplace(
                 name="A101", type=Workplace.TYPE.MARKET, status=Workplace.STATUS.NOW_OPEN,
                 address_ref=Address(district_ref=sariyer, latitude=41.0890, longitude=29.0331),
-                image_url="https://ayb.akinoncdn.com/static_omnishop/ayb587/assets/img/logo%40a101-2x.png",
+                image_url="https://i.pinimg.com/originals/5d/77/9e/5d779e7acce3bcb4db542160bebc1321.png",
             )
