@@ -32,6 +32,14 @@ class WebUser(db.Entity, UserMixin):
     def is_active(self):
         return True
 
+    @property
+    def is_admin(self):
+        return self.user_type == self.USER_TYPE.ADMIN
+
+    @property
+    def is_workplace_manager(self):
+        return self.user_type == self.USER_TYPE.WORKPLACE_MANAGER
+
 
 class Workplace(db.Entity):
     id = PrimaryKey(int, auto=True)
@@ -165,6 +173,10 @@ except (ProgrammingError, IntegrityError, OperationalError) as e:
 
 if __name__ == '__main__':
     with db_session:
+        print(WebUser.select(lambda wu: wu.user_type == WebUser.USER_TYPE.ADMIN)[:])
+        if WebUser.select(lambda wu: wu.user_type == WebUser.USER_TYPE.ADMIN).count() == 0:
+            WebUser(email_address="admin@admin.com", password_hash="$pbkdf2-sha256$29000$sdZai3EO4RyjNIZwrhUCwA$th6SQ9PHhpgqpB6yDZv8tJIdDp59LWgwAxYU7huSrxo", registration_time=datetime.now(), user_type=WebUser.USER_TYPE.ADMIN)
+            print("asdasdasd")
         sariyer = District.get(district="Sarıyer")
         if not sariyer:
             istanbul = City.get(city="İstanbul")

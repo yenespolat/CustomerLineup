@@ -5,6 +5,7 @@ from flask_login import LoginManager, current_user
 from pony.flask import Pony
 
 from customer_lineup.auth.api import auth_api_bp
+from customer_lineup.auth.authorization import admin_required
 from customer_lineup.auth.db import get_webuser_with_id
 from customer_lineup.auth.page import auth_page_bp
 from customer_lineup.blueprint_template.api import blueprint_template_api_bp
@@ -56,7 +57,9 @@ lm.login_view = "auth_page_bp.login"
 
 
 @app.route('/')
+@admin_required
 def index():
+    print(current_user)
     return render_template('index.html')
 
 
