@@ -57,9 +57,7 @@ lm.login_view = "auth_page_bp.login"
 
 
 @app.route('/')
-@admin_required
 def index():
-    print(current_user)
     return render_template('index.html')
 
 
