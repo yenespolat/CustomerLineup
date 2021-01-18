@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory
 from flask_login import LoginManager, current_user
 from pony.flask import Pony
 
@@ -59,6 +59,11 @@ lm.login_view = "auth_page_bp.login"
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/application')
+def download():
+    uploads_dir = os.path.join('.\\apk')
+    return send_from_directory(uploads_dir, 'CustomerLineUp.apk')
 
 
 if __name__ == '__main__':
