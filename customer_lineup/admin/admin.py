@@ -24,7 +24,6 @@ def manage_userspage():
 	if current_user.is_authenticated:
 		if current_user.user_type == 1:
 			users = db_auth.get_all_users()
-			print(users)
 			return render_template("manage_userspage.html",  users=users)
 		else:
 			return redirect(url_for('index'))
@@ -56,6 +55,9 @@ def assign_manager_to_wp(wp_id):
 	if current_user.is_authenticated:
 		if current_user.user_type == 1:
 			users = db_auth.get_all_users()
+			current_managers = []
+			for manager in workplace.managers_set:
+				current_managers.append(manager.to_dict())
 			if request.method == "POST":
 				new_manager_id = request.form['user_id_to_assign']
 				new_manager = db_auth.get_webuser_with_id(new_manager_id)
@@ -63,7 +65,7 @@ def assign_manager_to_wp(wp_id):
 				workplaces = db_wp.get_workplaces() 
 				return render_template("manage_workplacespage.html", workplaces=workplaces)
 			else:	
-				return render_template("assign_managerpage.html", workplace=workplace, users=users)
+				return render_template("assign_managerpage.html", workplace=workplace, users=users, current_managers=current_managers)
 		else:
 			return redirect(url_for('index'))
 	else:
@@ -76,8 +78,6 @@ def manage_workplacespage():
 	if current_user.is_authenticated:
 		if current_user.user_type == 1:
 			workplaces = db_wp.get_all_workplaces()
-			for wp in workplaces:
-				print(wp)
 			return render_template("manage_workplacespage.html", workplaces=workplaces)
 		else:
 			return redirect(url_for('index'))
@@ -130,5 +130,11 @@ def add_workplacepage():
 			return redirect(url_for('index'))
 	else:
 		return redirect(url_for('index'))
+
+@admin_page_bp.route('/remove-manager/<int:user_id>')
+def remove_manager(user_id):
+	user = db_auth.get_webuser_with_id(user_id)
+	user.set(managed_workplace_ref=None)
+	return redirect(url_for('admin_page_bp.manage_workplacespage'))
 
 

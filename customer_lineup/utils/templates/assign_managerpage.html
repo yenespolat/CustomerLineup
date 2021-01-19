@@ -20,7 +20,24 @@
 			{% endfor %}
 			<input class="btn-mn" type="submit" value="Assign User" class="btn btn-secondary">
 		</select>
-    </form>
+	</form>
+	<div>
+		<h1 style="font-family: 'Raleway', sans-serif;">Current Managers</h1>
+		<table style="width: 25%;">
+			<tr>
+				<th style="text-align: left; width: 45%;">Name</th>
+				<th style="text-align: left; width: 45%;">Surname</th>
+				<th style="text-align: left; width: 10%;"></th>
+			</tr>
+			{% for manager in current_managers %}
+			<tr style="line-height: 30px;">
+				<td>{{ manager.name }}</td>
+				<td>{{ manager.surname }}</td>
+				<td><a href="/admin/remove-manager/{{ manager.id }}">remove</a></td>
+			</tr>
+			{% endfor %}
+		</table>
+	</div>
 </div>
 
 {% endblock %}

@@ -12,7 +12,7 @@
             style="text-align: center; background-color: #c9c9c9; width: 100%; font-size: 20px;">
             <thead>
                 <tr>
-                    <th scope="col" style="width: 40%; text-align: left; padding-left: 10%;">Name</th>
+                    <th scope="col" style="width: 30%; text-align: left; padding-left: 10%;">Name</th>
                     <th scope="col" style="width: 20%;">City</th>
                     <th scope="col" style="width: 15%;">Distinct</th>
                     <th scope="col" style="width: 15%;"></th>
@@ -26,7 +26,7 @@
             <tbody>
                 {% for wp in workplaces %}
                 <tr class="table-hover" style="line-height: 50px;">
-                    <td style="width: 40%; text-align: left; padding-left: 10%;">{{ wp['name'] }}</td>
+                    <td style="width: 30%; text-align: left; padding-left: 10%;">{{ wp['name'] }}</td>
                     <td style="width: 20%;">{{ wp['address']['city'] }}</td>
                     <td style="width: 15%;">{{ wp['address']['district'] }}</td>
                     <td style="width: 15%;"><a href="/workplace/{{ wp['id'] }}" style="color: black;">view</a></td>

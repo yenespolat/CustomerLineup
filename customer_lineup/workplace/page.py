@@ -57,3 +57,9 @@ def edit_workplace(wp_id):
             workplace.set(staff_warning_limit=int(new_wlimit))
         return redirect(url_for('workplace_page_bp.dashboard'))
     return render_template('edit-workplace.html', workplace=workplace)
+
+@workplace_page_bp.route('/delete/<int:wp_id>')
+@login_required
+def delete_workplace(wp_id):
+    wp_db.delete_wp(wp_id)
+    return redirect(url_for('admin_page_bp.manage_workplacespage'))

@@ -121,3 +121,9 @@ def get_all_cities():
     cities = City.select(lambda c: c.id > 0)
     return cities
 
+@db_session
+def delete_wp(id):
+    workplace = get_workplace_with_id(id)
+    workplace.delete()
+    return True
+
