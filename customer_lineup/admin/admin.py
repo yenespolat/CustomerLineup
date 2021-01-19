@@ -137,4 +137,10 @@ def remove_manager(user_id):
 	user.set(managed_workplace_ref=None)
 	return redirect(url_for('admin_page_bp.manage_workplacespage'))
 
+@admin_page_bp.route('/delete-user/<int:user_id>')
+def delete_user(user_id):
+	user = db_auth.get_webuser_with_id(user_id)
+	user.delete()
+	return redirect(url_for('admin_page_bp.manage_userspage'))
+
 
