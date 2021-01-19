@@ -26,7 +26,7 @@
                     <td style="width: 50%; text-align: left; padding-left: 8%;">{{ queue['workplaces_ref'] }}</td>
                     <td style="width: 25%;">{{ queue['status_time'] }}</td>
                     <td style="width: 25%;">{% if queue['comment_ref'] != None %}
-                        {{ queue['comment_ref']['comment']['score'] }}/10
+                        {{ queue['comment_ref']['comment']['score'] }}/5
                         {% else %}
                         <a href="/comment/comment/{{queue['id']}}">vote</a>
                         {% endif %}
