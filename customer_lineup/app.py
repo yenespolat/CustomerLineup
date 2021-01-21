@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template, send_from_directory, request, jsonify
 from flask_login import LoginManager, current_user
 from pony.flask import Pony
 
@@ -67,7 +67,14 @@ def download():
 
 @app.route('/loaderio-eea58de1064be82a154acd4ba76aece9/')
 def loaderio():
-	return 'loaderio-eea58de1064be82a154acd4ba76aece9'
+    return 'loaderio-eea58de1064be82a154acd4ba76aece9'
+
+@app.route('/load-test-api')
+def load_test():
+    args = request.args
+    text = args.get('text')
+    return jsonify(result=True, msg=text)
+
 
 
 if __name__ == '__main__':
