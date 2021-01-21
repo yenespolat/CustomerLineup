@@ -65,6 +65,10 @@ def download():
     uploads_dir = os.path.join('.\\apk')
     return send_from_directory(uploads_dir, 'CustomerLineUp.apk')
 
+@app.route('/loaderio-eea58de1064be82a154acd4ba76aece9')
+def loaderio():
+	return 'loaderio-eea58de1064be82a154acd4ba76aece9'
+
 
 if __name__ == '__main__':
     app.run(debug=True)

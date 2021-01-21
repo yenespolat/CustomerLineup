@@ -144,3 +144,5 @@ def delete_user(user_id):
 	return redirect(url_for('admin_page_bp.manage_userspage'))
 
 
+
+
